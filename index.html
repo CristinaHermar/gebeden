@@ -1,2 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Gebeden</title>
 
-<h1>holaa </h1>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon-192.png" />
+  <link rel="apple-touch-icon" href="icon-192.png" />
+
+  <meta name="theme-color" content="#7a1f3d" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Preces" />
+</head>
+<body>
+
+  <header class="hero">
+    <p class="kicker">EN · NL</p>
+    <h1>Preces</h1>
+    <p class="subtitle">A pocket book of daily prayer<br />Een klein gebedenboek</p>
+  </header>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-tab="daily">
+      <span class="tab-en">Daily Prayers</span><span class="tab-sep">/</span><span class="tab-nl">Dagelijks</span>
+    </button>
+    <button class="tab" data-tab="rosary">
+      <span class="tab-en">Rosary</span><span class="tab-sep">/</span><span class="tab-nl">Rozenkrans</span>
+    </button>
+    <button class="tab" data-tab="opusdei">
+      <span class="tab-en">Opus Dei</span><span class="tab-sep">/</span><span class="tab-nl">Opus Dei</span>
+    </button>
+  </nav>
+
+  <div class="lang-bar">
+    <span class="lang-bar-label">
+      <span class="only-en">Show</span><span class="only-nl">Toon</span>
+    </span>
+    <button id="toggle-latin" class="latin-toggle" aria-pressed="false">
+      + Latin <span class="lang-sep">/</span> Latijn
+    </button>
+  </div>
+
+  <main id="content"></main>
+
+  <footer>
+    <p class="footer-quote">“Ad maiorem Dei gloriam”</p>
+  </footer>
+
+  <script src="prayers-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

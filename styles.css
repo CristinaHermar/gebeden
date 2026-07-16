@@ -1,0 +1,418 @@
+:root {
+  --wine: #7a1f3d;
+  --wine-dark: #4f1226;
+  --wine-light: #a24a68;
+  --gold: #b8894f;
+  --gold-light: #e3c68f;
+  --rubric: #a23b2e;
+  --parchment: #f7f2e6;
+  --parchment-2: #fffaf1;
+  --ink: #2c2018;
+  --line: #e6d9c4;
+  --shadow: rgba(79, 18, 38, 0.14);
+  font-size: 16px;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--parchment);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+  min-height: 100vh;
+  padding-bottom: 40px;
+}
+
+/* ---------- Header ---------- */
+
+.hero {
+  background:
+    linear-gradient(160deg, var(--wine-dark), var(--wine) 65%),
+    radial-gradient(circle at 85% -10%, rgba(227, 198, 143, 0.35), transparent 55%);
+  color: var(--parchment-2);
+  padding: 38px 24px 30px;
+  text-align: center;
+  border-bottom: 3px solid var(--gold);
+  position: relative;
+}
+
+.hero .kicker {
+  margin: 0 0 4px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  font-family: Georgia, serif;
+  color: var(--gold-light);
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 3rem;
+  font-weight: 400;
+  letter-spacing: 2px;
+  font-family: "Iowan Old Style", Georgia, serif;
+  text-shadow: 0 3px 10px rgba(0, 0, 0, 0.25);
+}
+
+.hero .subtitle {
+  margin: 10px 0 0;
+  font-size: 0.92rem;
+  font-style: italic;
+  color: var(--gold-light);
+  line-height: 1.5;
+}
+
+/* ---------- Tabs ---------- */
+
+.tabs {
+  display: flex;
+  gap: 8px;
+  max-width: 720px;
+  margin: -20px auto 0;
+  padding: 10px;
+  background: var(--parchment-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 14px 30px var(--shadow);
+  position: relative;
+  z-index: 2;
+}
+
+.tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 11px;
+  padding: 12px 6px;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--wine-dark);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  line-height: 1.25;
+}
+
+.tab .tab-sep { display: none; }
+.tab .tab-nl { font-style: italic; opacity: 0.75; font-size: 0.78em; }
+
+.tab.active {
+  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
+  color: var(--parchment-2);
+}
+
+.tab.active .tab-nl { opacity: 0.85; }
+
+/* ---------- Language bar ---------- */
+
+.lang-bar {
+  max-width: 720px;
+  margin: 14px auto 0;
+  padding: 0 14px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang-bar-label { display: none; }
+
+.latin-toggle {
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--wine-dark);
+  background: var(--parchment-2);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+}
+
+.latin-toggle .lang-sep { opacity: 0.5; margin: 0 2px; }
+
+.latin-toggle[aria-pressed="true"] {
+  background: var(--gold);
+  color: var(--wine-dark);
+  border-color: var(--gold);
+  font-weight: 600;
+}
+
+/* ---------- Content ---------- */
+
+main {
+  max-width: 720px;
+  margin: 18px auto 0;
+  padding: 0 14px;
+}
+
+.section-title {
+  color: var(--wine);
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+  margin: 22px 4px 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+
+.section-title .en { font-weight: 600; }
+.section-title .nl { font-style: italic; opacity: 0.75; font-size: 0.9em; }
+
+.intro-text {
+  margin: 8px 4px 18px;
+  font-size: 0.88rem;
+  color: var(--wine-dark);
+  opacity: 0.85;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* ---------- Prayer card ---------- */
+
+.prayer-card {
+  background: var(--parchment-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 8px 22px var(--shadow);
+  overflow: hidden;
+}
+
+.prayer-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.prayer-title .col-title {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--wine);
+  letter-spacing: 0.2px;
+}
+
+.prayer-title .col-title.nl {
+  text-align: right;
+  color: var(--wine-light);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.prayer-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.prayer-columns .col {
+  padding: 14px 12px;
+  font-size: 0.92rem;
+  line-height: 1.62;
+}
+
+.prayer-columns .col-en {
+  border-right: 1px solid var(--line);
+}
+
+.prayer-columns .col-nl {
+  font-style: italic;
+  color: #4a3c2c;
+}
+
+.prayer-note {
+  margin: 0 16px 14px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-size: 0.8rem;
+  color: var(--rubric);
+  line-height: 1.5;
+}
+
+.prayer-note .col-title {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--rubric);
+}
+
+.prayer-latin {
+  margin: 0 16px 16px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #fbf3e0, #f6ead0);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--wine-dark);
+}
+
+.prayer-latin .latin-label {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: var(--wine-dark);
+  padding: 2px 8px;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
+.prayer-source {
+  margin: 0 16px 14px;
+  font-size: 0.72rem;
+  color: #8a7a63;
+  font-style: italic;
+}
+
+/* ---------- Rosary specific ---------- */
+
+.today-banner {
+  background: linear-gradient(135deg, var(--gold-light), var(--gold));
+  color: var(--wine-dark);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin-bottom: 18px;
+  font-size: 0.88rem;
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.today-banner strong {
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 2px;
+}
+
+.decade-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.decade-steps li {
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--line);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.decade-steps li:last-child { border-bottom: none; }
+.decade-steps .en { color: var(--ink); }
+.decade-steps .nl { color: var(--wine-light); font-style: italic; text-align: right; }
+
+.mystery-set {
+  background: var(--parchment-2);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+  box-shadow: 0 8px 22px var(--shadow);
+}
+
+.mystery-set.is-today {
+  border-color: var(--gold);
+  box-shadow: 0 8px 24px var(--shadow), 0 0 0 2px var(--gold-light) inset;
+}
+
+.mystery-set-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 8px;
+}
+
+.mystery-set-title .en {
+  font-weight: 700;
+  color: var(--wine);
+  font-size: 0.98rem;
+}
+
+.mystery-set-title .nl {
+  font-style: italic;
+  color: var(--wine-light);
+  font-size: 0.85rem;
+}
+
+.mystery-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: mystery;
+}
+
+.mystery-list li {
+  counter-increment: mystery;
+  display: grid;
+  grid-template-columns: 22px 1fr 1fr;
+  gap: 8px;
+  padding: 6px 0;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.mystery-list li:last-child { border-bottom: none; }
+
+.mystery-list li::before {
+  content: counter(mystery);
+  color: var(--gold);
+  font-weight: 700;
+}
+
+.mystery-list .en { color: var(--ink); }
+.mystery-list .nl { font-style: italic; color: #4a3c2c; }
+.mystery-list .la {
+  grid-column: 2 / span 2;
+  font-style: italic;
+  color: var(--wine-dark);
+  font-size: 0.8rem;
+  opacity: 0.85;
+  padding-top: 2px;
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  text-align: center;
+  margin-top: 34px;
+  padding: 0 20px;
+}
+
+.footer-quote {
+  font-style: italic;
+  color: var(--wine-light);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 420px) {
+  :root { font-size: 15px; }
+  .hero h1 { font-size: 2.5rem; }
+  .prayer-columns .col { padding: 12px 9px; font-size: 0.87rem; }
+  .mystery-list li { grid-template-columns: 18px 1fr 1fr; font-size: 0.8rem; }
+}
+
+@media (min-width: 620px) {
+  .tab { font-size: 0.9rem; padding: 14px 8px; }
+  .tab .tab-sep { display: inline; opacity: 0.5; margin: 0 4px; }
+  .tab .tab-nl { font-size: 0.95em; }
+}
