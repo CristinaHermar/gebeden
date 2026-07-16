@@ -1,5 +1,5 @@
 /* ============================================================
-   PRECES — datos de oraciones (EN / NL / LA)
+   GEBEDEN — datos de oraciones (EN / NL / LA)
    Fuentes: textos tradicionales católicos (dominio público) y,
    para las dos últimas oraciones del Opus Dei, opusdei.org
    (traducción propia al neerlandés y al latín).
@@ -94,35 +94,31 @@ const PRAYERS = [
   {
     id: "opusdei-begin",
     category: "opusdei",
-    title: { en: "To Begin Prayer", nl: "Om het Gebed te Beginnen", la: "Ad Oratiónem Incipiéndam", es: "Para Empezar la Oración" },
+    title: { en: "To Begin Prayer", nl: "Om het Gebed te Beginnen", la: "Ad Oratiónem Incipiéndam" },
     text: {
       en: "My Lord and my God, I firmly believe that you are here, that you see me, that you hear me. I adore you with profound reverence. I ask your pardon for my sins, and grace to make this time of prayer fruitful. My Immaculate Mother, Saint Joseph my father and lord, my Guardian Angel: intercede for me.",
       nl: "Mijn Heer en mijn God, ik geloof vast dat U hier aanwezig bent, dat U mij ziet, dat U mij hoort. Ik aanbid U met diepe eerbied. Ik vraag vergeving voor mijn zonden en de genade om dit gebedsmoment vruchtbaar te maken. Mijn Onbevlekte Moeder, heilige Jozef, mijn vader en heer, mijn engelbewaarder: kom voor mij tussenbeide.",
-      la: "Dómine et Deus meus, firmíter credo te hic adésse, me vidére, me audíre. Te profúnda reveréntia adóro. Véniam peto pro peccátis meis, et grátiam ut hoc tempus oratiónis fructuósum sit. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me.",
-      es: "Señor mío y Dios mío, creo firmemente que estás aquí, que me ves, que me oyes. Te adoro con profunda reverencia. Te pido perdón por mis pecados y la gracia de hacer fructífero este rato de oración. Madre mía Inmaculada, san José, mi padre y señor, ángel de mi guarda: intercended por mí."
+      la: "Dómine et Deus meus, firmíter credo te hic adésse, me vidére, me audíre. Te profúnda reveréntia adóro. Véniam peto pro peccátis meis, et grátiam ut hoc tempus oratiónis fructuósum sit. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me."
     },
     source: {
       en: "Prayer taught by St. Josemaría Escrivá — opusdei.org",
       nl: "Gebed onderwezen door de heilige Jozefmaria Escrivá — opusdei.org (eigen vertaling)",
-      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)",
-      es: "Oración enseñada por san Josemaría Escrivá — opusdei.org. No existe una traducción oficial al español ampliamente publicada; esta es una traducción propia, no litúrgica."
+      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)"
     }
   },
   {
     id: "opusdei-end",
     category: "opusdei",
-    title: { en: "To End Prayer", nl: "Om het Gebed te Besluiten", la: "Ad Oratiónem Claudéndam", es: "Para Terminar la Oración" },
+    title: { en: "To End Prayer", nl: "Om het Gebed te Besluiten", la: "Ad Oratiónem Claudéndam" },
     text: {
       en: "I thank you, my God, for the good resolutions, affections, and inspirations you have communicated to me in this meditation. I ask your help to put them into effect. My Immaculate Mother, Saint Joseph my father and lord, my Guardian Angel: intercede for me.",
       nl: "Ik dank U, mijn God, voor de goede voornemens, gevoelens en ingevingen die U mij tijdens deze overweging hebt geschonken. Ik vraag uw hulp om ze in praktijk te brengen. Mijn Onbevlekte Moeder, heilige Jozef, mijn vader en heer, mijn engelbewaarder: kom voor mij tussenbeide.",
-      la: "Grátias tibi ago, Deus meus, pro bonis propósitis, afféctibus et inspiratiónibus quas mihi in hac meditatióne communicásti. Auxílium tuum peto ut ea ad efféctum perdúcam. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me.",
-      es: "Te doy gracias, Dios mío, por los buenos propósitos, afectos e inspiraciones que me has comunicado en esta meditación. Te pido tu ayuda para llevarlos a la práctica. Madre mía Inmaculada, san José, mi padre y señor, ángel de mi guarda: intercended por mí."
+      la: "Grátias tibi ago, Deus meus, pro bonis propósitis, afféctibus et inspiratiónibus quas mihi in hac meditatióne communicásti. Auxílium tuum peto ut ea ad efféctum perdúcam. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me."
     },
     source: {
       en: "Prayer taught by St. Josemaría Escrivá — opusdei.org",
       nl: "Gebed onderwezen door de heilige Jozefmaria Escrivá — opusdei.org (eigen vertaling)",
-      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)",
-      es: "Oración enseñada por san Josemaría Escrivá — opusdei.org. No existe una traducción oficial al español ampliamente publicada; esta es una traducción propia, no litúrgica."
+      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)"
     }
   }
 ];
@@ -194,3 +190,220 @@ const MYSTERIES = {
 };
 
 const CLOSING_REF = "salve-regina";
+
+/* ============================================================
+   PRECES (OPUS DEI LITANY) — LA / ES / EN / NL
+   Texto latín y español: documento aportado por el usuario
+   (© Prælatura Sanctæ Crucis et Operis Dei, uso personal).
+   Traducciones al inglés y neerlandés: traducción propia a
+   partir del latín y del español.
+   ============================================================ */
+
+const PRECES_LITANY = {
+  title: { es: "Preces", en: "Preces", nl: "Preces", la: "Preces" },
+  subtitle: {
+    es: "Texto en latín y traducción",
+    en: "Latin text and translation",
+    nl: "Latijnse tekst en vertaling",
+    la: "Textus Latinus et translatio"
+  },
+  source: {
+    es: "Copyright del texto en latín © Prælatura Sanctæ Crucis et Operis Dei",
+    en: "Copyright of the Latin text © Prælatura Sanctæ Crucis et Operis Dei",
+    nl: "Copyright van de Latijnse tekst © Prælatura Sanctæ Crucis et Operis Dei",
+    la: "Copyright textus Latini © Prælatura Sanctæ Crucis et Operis Dei"
+  },
+  items: [
+    { kind: "label", la: "Sérviam!", es: "¡Te serviré!", en: "I will serve!", nl: "Ik zal dienen!" },
+
+    { kind: "verse",
+      v: { la: "Ad Trinitátem Beatíssimam.", es: "A la Santísima Trinidad.", en: "To the Most Holy Trinity.", nl: "Tot de Allerheiligste Drie-eenheid." },
+      r: { la: "Grátias tibi, Deus, grátias tibi: vera et una Trínitas, una et summa Déitas, sancta et una Únitas.",
+           es: "Gracias a ti, Señor Dios; gracias a ti, Trinidad única y verdadera, Dios único y supremo, Unidad única y santa.",
+           en: "Thanks be to thee, O God, thanks be to thee: true and one Trinity, one and supreme Godhead, holy and one Unity.",
+           nl: "Dank U, o God, dank U: ware en ene Drie-eenheid, ene en allerhoogste Godheid, heilige en ene Eenheid." } },
+
+    { kind: "verse",
+      v: { la: "Ad Iesum Christum Regem.", es: "A Jesucristo, Rey.", en: "To Jesus Christ the King.", nl: "Tot Jezus Christus, de Koning." },
+      r: { la: "Dóminus Iudex noster; Dóminus Légifer noster; Dóminus Rex noster. Ipse salvábit nos.",
+           es: "El Señor es nuestro juez. El Señor es nuestro legislador. El Señor es nuestro Rey. Él nos salvará.",
+           en: "The Lord is our Judge; the Lord is our Lawgiver; the Lord is our King. He himself will save us.",
+           nl: "De Heer is onze Rechter; de Heer is onze Wetgever; de Heer is onze Koning. Hij zal ons redden." } },
+
+    { kind: "verse",
+      v: { la: "Christe, Fili Dei vivi, miserére nobis.", es: "Cristo, Hijo de Dios vivo, ten misericordia de nosotros.", en: "Christ, Son of the living God, have mercy on us.", nl: "Christus, Zoon van de levende God, ontferm U over ons." },
+      r: { la: "Christe, Fili Dei vivi, miserére nobis.", es: "Cristo, Hijo de Dios vivo, ten misericordia de nosotros.", en: "Christ, Son of the living God, have mercy on us.", nl: "Christus, Zoon van de levende God, ontferm U over ons." } },
+
+    { kind: "verse",
+      v: { la: "Exsúrge, Christe, ádiuva nos.", es: "Levántate, oh Cristo, ayúdanos.", en: "Arise, O Christ, help us.", nl: "Sta op, Christus, help ons." },
+      r: { la: "Et líbera nos propter nomen tuum.", es: "Y líbranos a causa de tu nombre.", en: "And deliver us for thy name's sake.", nl: "En bevrijd ons omwille van uw naam." } },
+
+    { kind: "verse",
+      v: { la: "Dóminus illuminátio mea et salus mea: quem timébo?", es: "El Señor es mi luz y mi salvación, ¿a quién temeré?", en: "The Lord is my light and my salvation; whom shall I fear?", nl: "De Heer is mijn licht en mijn heil, voor wie zou ik vrezen?" },
+      r: { la: "Si consístant advérsum me castra, non timébit cor meum; si exsúrgat advérsum me prœlium, in hoc ego sperábo.",
+           es: "Si se levantan campamentos contra mí, mi corazón no temerá; si surge un combate en mi contra, en Él yo esperaré.",
+           en: "If an army should encamp against me, my heart shall not fear; if war should rise up against me, in this will I be confident.",
+           nl: "Al legert zich een leger tegen mij, mijn hart zal niet vrezen; al breekt er een strijd tegen mij los, toch blijf ik vol vertrouwen." } },
+
+    { kind: "verse",
+      v: { la: "Ad Beátam Vírginem Maríam Mediatrícem.", es: "A Santa María Virgen, mediadora.", en: "To the Blessed Virgin Mary, Mediatrix.", nl: "Tot de Heilige Maagd Maria, Middelares." },
+      r: { la: "Recordáre, Virgo Mater Dei, dum stéteris in conspéctu Dómini, ut loquáris pro nobis bona.",
+           es: "Acuérdate, oh Virgen Madre de Dios, mientras estás en la presencia del Señor, de hablar cosas buenas de nosotros.",
+           en: "Remember, O Virgin Mother of God, when you stand in the presence of the Lord, to speak good things on our behalf.",
+           nl: "Gedenk, Maagd en Moeder van God, wanneer u voor het aanschijn van de Heer staat, goede dingen voor ons te zeggen." } },
+
+    { kind: "verse",
+      v: { la: "Ad Sanctum Ioseph Sponsum Beátæ Maríæ Vírginis.", es: "A San José, esposo de Santa María Virgen.", en: "To Saint Joseph, Spouse of the Blessed Virgin Mary.", nl: "Tot de heilige Jozef, Bruidegom van de Heilige Maagd Maria." },
+      r: { la: "Fecit te Deus quasi Patrem Regis, et dóminum univérsæ domus eius: ora pro nobis.",
+           es: "Dios te estableció en el puesto de padre del Rey y en el de señor de toda su casa: ruega por nosotros.",
+           en: "God made you as it were the father of the King, and lord of his whole household: pray for us.",
+           nl: "God heeft u als het ware tot vader van de Koning gesteld, en tot heer van heel zijn huis: bid voor ons." } },
+
+    { kind: "verse",
+      v: { la: "Ad Ángelos Custódes.", es: "A los Ángeles Custodios.", en: "To the Guardian Angels.", nl: "Tot de bewaarengelen." },
+      r: { la: "Sancti Ángeli Custódes nostri, deféndite nos in prœlio ut non pereámus in treméndo iudício.",
+           es: "Oh, Santos Ángeles Custodios nuestros, defendednos en el combate, para que no perezcamos en el temible juicio.",
+           en: "Holy Angels, our guardians, defend us in battle, that we may not perish in the dreadful judgment.",
+           nl: "Heilige engelbewaarders, verdedig ons in de strijd, opdat wij niet verloren gaan in het vreselijk oordeel." } },
+
+    { kind: "verse",
+      v: { la: "Ad Sanctum Ioseph maríam Conditórem nostrum.", es: "A san Josemaría, nuestro Fundador.", en: "To Saint Josemaría, our Founder.", nl: "Tot de heilige Jozefmaria, onze Stichter." },
+      r: { la: "Intercéde pro fíliis tuis ut, fidéles spirítui Óperis Dei, labórem sanctificémus et ánimas Christo lucrifácere quærámus.",
+           es: "Intercede por tus hijos, para que, fieles al espíritu del Opus Dei, santifiquemos el trabajo y ganemos almas para Cristo.",
+           en: "Intercede for your children, that, faithful to the spirit of Opus Dei, we may sanctify our work and seek to win souls for Christ.",
+           nl: "Kom tussenbeide voor uw kinderen, opdat wij, trouw aan de geest van het Opus Dei, ons werk heiligen en zielen voor Christus trachten te winnen." } },
+
+    { kind: "verse",
+      v: { la: "Orémus pro Beatíssimo Papa nostro N.", es: "Oremos por el Santo Padre N.", en: "Let us pray for our most blessed Father, Pope N.", nl: "Laat ons bidden voor onze Heilige Vader, Paus N." },
+      r: { la: "Dóminus consérvet eum, et vivíficet eum, et beátum fáciat eum in terra, et non tradat eum in ánimam inimicórum eius.",
+           es: "Que el Señor lo guarde y lo llene de vida y lo haga santo en la tierra y no lo entregue en manos de sus enemigos.",
+           en: "May the Lord preserve him, and give him life, and make him blessed upon the earth, and not deliver him into the hands of his enemies.",
+           nl: "Moge de Heer hem bewaren, hem leven geven, hem gelukkig maken op aarde, en hem niet overleveren aan de wil van zijn vijanden." } },
+
+    { kind: "verse",
+      v: { la: "Orémus et pro Antístite huius diœcésis.", es: "Oremos también por el Obispo de esta diócesis.", en: "Let us pray also for the Bishop of this diocese.", nl: "Laat ons ook bidden voor de bisschop van dit bisdom." },
+      r: { la: "Stet et pascat in fortitúdine tua, Dómine, in sublimitáte nóminis tui.",
+           es: "Que se mantenga firme y que ejerza su ministerio de pastor con tu fortaleza, en la sublimidad de tu nombre.",
+           en: "May he stand firm and shepherd in thy strength, O Lord, in the majesty of thy name.",
+           nl: "Moge hij standhouden en hoeden in uw kracht, Heer, in de verhevenheid van uw naam." } },
+
+    { kind: "verse",
+      v: { la: "Orémus pro unitáte apostolátus.", es: "Oremos por la unidad del apostolado.", en: "Let us pray for the unity of the apostolate.", nl: "Laat ons bidden voor de eenheid van het apostolaat." },
+      r: { la: "Ut omnes unum sint, sicut tu Pater in me et ego in te: ut sint unum, sicut et nos unum sumus.",
+           es: "Que todos sean uno, como tú, Padre, en mí y yo en Ti; que sean uno, como también nosotros somos uno.",
+           en: "That all may be one, as thou, Father, art in me and I in thee: that they also may be one, as we are one.",
+           nl: "Dat allen één mogen zijn, zoals Gij, Vader, in Mij zijt en Ik in U: dat zij één mogen zijn, zoals ook Wij één zijn." } },
+
+    { kind: "verse",
+      v: { la: "Omne regnum divísum contra se, desolábitur.", es: "Todo reino dividido contra sí mismo, será desolado.", en: "Every kingdom divided against itself shall be laid waste.", nl: "Ieder rijk dat tegen zichzelf verdeeld is, zal ten onder gaan." },
+      r: { la: "Et omnis cívitas vel domus divísa contra se non stabit.",
+           es: "Y toda ciudad o casa dividida contra sí no permanecerá en pie.",
+           en: "And every city or house divided against itself shall not stand.",
+           nl: "En elke stad of elk huis dat tegen zichzelf verdeeld is, zal niet standhouden." } },
+
+    { kind: "verse",
+      v: { la: "Orémus pro benefactóribus nostris.", es: "Oremos por nuestros benefactores.", en: "Let us pray for our benefactors.", nl: "Laat ons bidden voor onze weldoeners." },
+      r: { la: "Retribúere dignáre, Dómine, ómnibus nobis bona faciéntibus propter nomen tuum, vitam ætérnam. Amen.",
+           es: "Dígnate, Señor, a recompensar con la vida eterna a todos los que nos hacen el bien por tu nombre. Amén.",
+           en: "Vouchsafe, O Lord, to reward with eternal life all who do us good for thy name's sake. Amen.",
+           nl: "Waardig U, Heer, allen die ons goed doen omwille van uw naam, met het eeuwig leven te belonen. Amen." } },
+
+    { kind: "verse",
+      v: { la: "Orémus pro Patre.", es: "Oremos por el Padre.", en: "Let us pray for the Father.", nl: "Laat ons bidden voor de Vader." },
+      r: { la: "Misericórdia Dómini ab ætérno et usque in ætérnum super eum: custódit enim Dóminus omnes diligéntes se.",
+           es: "Que la misericordia del Señor repose sobre él desde siempre y para siempre, pues el Señor custodia a todos los que le aman.",
+           en: "The mercy of the Lord is from eternity to eternity upon him: for the Lord keeps all those who love him.",
+           nl: "De barmhartigheid van de Heer is van eeuwigheid tot eeuwigheid over hem: want de Heer behoedt allen die Hem liefhebben." } },
+
+    { kind: "verse",
+      v: { la: "Orémus et pro frátribus nostris Óperis Dei, vivis atque defúnctis.", es: "Oremos también por nuestros hermanos del Opus Dei, vivos y difuntos.", en: "Let us pray also for our brothers and sisters of Opus Dei, living and deceased.", nl: "Laat ons ook bidden voor onze broeders en zusters van het Opus Dei, levenden en overledenen." },
+      r: { la: "Salvos fac servos tuos, Deus meus, sperántes in te.",
+           es: "Salva a tus siervos, Dios mío, que esperan en ti.",
+           en: "Save thy servants, O my God, who hope in thee.",
+           nl: "Red uw dienaren, mijn God, die op U hopen." } },
+
+    { kind: "verse",
+      v: { la: "Mitte eis, Dómine, auxílium de sancto.", es: "Envíales, Señor, tu auxilio desde el cielo.", en: "Send them help, O Lord, from thy holy place.", nl: "Zend hun, Heer, hulp van uw heiligdom." },
+      r: { la: "Et de Sion tuére eos.", es: "Y protégelos desde Sión.", en: "And defend them from Zion.", nl: "En bescherm hen vanuit Sion." } },
+
+    { kind: "verse",
+      v: { la: "Réquiem ætérnam dona eis, Dómine.", es: "Concédeles, Señor, el descanso eterno.", en: "Eternal rest grant unto them, O Lord.", nl: "Geef hun de eeuwige rust, Heer." },
+      r: { la: "Et lux perpétua lúceat eis.", es: "Y brille sobre ellos la luz perpetua.", en: "And let perpetual light shine upon them.", nl: "En het eeuwig licht verlichte hen." } },
+
+    { kind: "verse",
+      v: { la: "Requiéscant in pace.", es: "Descansen en paz.", en: "May they rest in peace.", nl: "Mogen zij rusten in vrede." },
+      r: { la: "Amen.", es: "Amén.", en: "Amen.", nl: "Amen." } },
+
+    { kind: "verse",
+      v: { la: "Dómine, exáudi oratiónem meam.", es: "Señor, escucha mi oración.", en: "O Lord, hear my prayer.", nl: "Heer, verhoor mijn gebed." },
+      r: { la: "Et clamor meus ad te véniat.", es: "Y llegue a ti mi clamor.", en: "And let my cry come unto thee.", nl: "En laat mijn roepen tot U komen." } },
+
+    { kind: "rubric",
+      la: "Sacérdos, si Preces modérátur, exsúrgit et áddit Dóminus vobíscum, stans étiam dum recitat oratiónem.",
+      es: "Si un sacerdote dirige las Preces, se alza y añade: El Señor esté con vosotros, permaneciendo en pie también mientras recita la oración.",
+      en: "If a priest is leading the Preces, he stands and adds \"The Lord be with you,\" remaining standing while he recites the prayer.",
+      nl: "Als een priester de Preces leidt, staat hij op en voegt hij toe: \u201cDe Heer zij met u,\u201d en blijft hij ook staan terwijl hij het gebed uitspreekt." },
+
+    { kind: "verse",
+      v: { la: "Dóminus vobíscum.", es: "El Señor esté con vosotros.", en: "The Lord be with you.", nl: "De Heer zij met u." },
+      r: { la: "Et cum spíritu tuo.", es: "Y con tu espíritu.", en: "And with your spirit.", nl: "En met uw geest." } },
+
+    { kind: "label", la: "Orémus.", es: "Oremos.", en: "Let us pray.", nl: "Laat ons bidden." },
+
+    { kind: "prayer",
+      la: "Deus, cui próprium est miseréri semper et párcere: súscipe deprecatiónem nostram. Ure igne Sancti Spíritus renes nostros et cor nostrum, Dómine: ut tibi casto córpore serviámus, et mundo corde placeámus.",
+      es: "Oh Dios, de quien es propio compadecerse siempre y perdonar: acoge nuestra súplica. Enciende, Señor, nuestras entrañas y nuestro corazón con el fuego del Espíritu Santo: para que te sirvamos con un comportamiento casto y te agrademos por nuestro corazón limpio.",
+      en: "O God, whose nature it is ever to have mercy and to forgive: receive our petition, and set our hearts and minds ablaze with the fire of the Holy Spirit, O Lord, that we may serve thee with a chaste life and please thee with a clean heart.",
+      nl: "O God, wiens eigenschap het is altijd barmhartig te zijn en te vergeven: aanvaard onze smeekbede. Ontsteek, Heer, ons binnenste en ons hart met het vuur van de Heilige Geest, opdat wij U met een kuis leven mogen dienen en U met een zuiver hart mogen behagen." },
+
+    { kind: "prayer",
+      la: "Actiónes nostras, quǽsumus Dómine, aspirándo prǽveni et adiuvándo proséquere: ut cuncta nostra orátio et operátio a te semper incípiat, et per te cœpta finiátur. Per Christum Dóminum nostrum.",
+      es: "Te pedimos, Señor, que te anticipes a nuestras acciones inspirándolas y que las acompañes sosteniéndolas: para que toda nuestra oración y actuación empiece en ti y por ti llegue a cumplimiento lo iniciado. Por Cristo nuestro Señor.",
+      en: "We beseech thee, O Lord, to go before our actions with thy inspiration and to accompany them with thy help, that all our prayer and work may always begin from thee, and through thee be brought to completion. Through Christ our Lord.",
+      nl: "Wij vragen U, Heer, onze daden vooraf te gaan met uw ingeving en te vergezellen met uw hulp, opdat al ons bidden en handelen altijd van U moge uitgaan en door U tot voltooiing worde gebracht. Door Christus onze Heer." },
+
+    { kind: "responseOnly", r: { la: "Amen.", es: "Amén.", en: "Amen.", nl: "Amen." } },
+
+    { kind: "label", la: "Omnes dicunt:", es: "Todos dicen:", en: "All say:", nl: "Allen zeggen:" },
+
+    { kind: "prayer",
+      la: "Gáudium cum pace, emendatiónem vitæ, spátium veræ pœniténtiæ, grátiam et consolatiónem Sancti Spíritus atque in Ópere Dei perseverántiam, tríbuat nobis Omnípotens et Miséricors Dóminus.",
+      es: "Que el Señor omnipotente y misericordioso nos conceda la alegría y la paz, la conversión de nuestra vida, un tiempo de verdadera penitencia, la gracia y el consuelo del Espíritu Santo y la perseverancia en el Opus Dei.",
+      en: "May the Almighty and Merciful Lord grant us joy with peace, amendment of life, room for true penance, the grace and consolation of the Holy Spirit, and perseverance in Opus Dei.",
+      nl: "Moge de Almachtige en Barmhartige Heer ons vreugde met vrede schenken, verbetering van leven, ruimte voor ware boetvaardigheid, de genade en troost van de Heilige Geest, en volharding in het Opus Dei." },
+
+    { kind: "verse", v: { la: "Sancte Míchaël.", es: "San Miguel.", en: "Saint Michael.", nl: "Heilige Michaël." },
+      r: { la: "Ora pro nobis.", es: "Ruega por nosotros.", en: "Pray for us.", nl: "Bid voor ons." } },
+    { kind: "verse", v: { la: "Sancte Gábriel.", es: "San Gabriel.", en: "Saint Gabriel.", nl: "Heilige Gabriël." },
+      r: { la: "Ora pro nobis.", es: "Ruega por nosotros.", en: "Pray for us.", nl: "Bid voor ons." } },
+    { kind: "verse", v: { la: "Sancte Ráphaël.", es: "San Rafael.", en: "Saint Raphael.", nl: "Heilige Rafaël." },
+      r: { la: "Ora pro nobis.", es: "Ruega por nosotros.", en: "Pray for us.", nl: "Bid voor ons." } },
+    { kind: "verse", v: { la: "Sancte Petre.", es: "San Pedro.", en: "Saint Peter.", nl: "Heilige Petrus." },
+      r: { la: "Ora pro nobis.", es: "Ruega por nosotros.", en: "Pray for us.", nl: "Bid voor ons." } },
+    { kind: "verse", v: { la: "Sancte Paule.", es: "San Pablo.", en: "Saint Paul.", nl: "Heilige Paulus." },
+      r: { la: "Ora pro nobis.", es: "Ruega por nosotros.", en: "Pray for us.", nl: "Bid voor ons." } },
+    { kind: "verse", v: { la: "Sancte Ioánnes.", es: "San Juan.", en: "Saint John.", nl: "Heilige Johannes." },
+      r: { la: "Ora pro nobis.", es: "Ruega por nosotros.", en: "Pray for us.", nl: "Bid voor ons." } },
+
+    { kind: "rubric",
+      la: "Cum adsit áliquis Sacérdos, dígnior ait:",
+      es: "Cuando esté presente algún sacerdote, el que hace cabeza dice:",
+      en: "When a priest is present, the one presiding says:",
+      nl: "Wanneer er een priester aanwezig is, zegt degene die voorgaat:" },
+
+    { kind: "prayer", la: "Iube, Domne, benedícere.", es: "Dígnate, padre, bendecirnos.", en: "Pray, Father, give the blessing.", nl: "Vader, geef ons uw zegen." },
+
+    { kind: "rubric", la: "Sacérdos benedícit:", es: "El sacerdote bendice:", en: "The priest blesses:", nl: "De priester zegent:" },
+
+    { kind: "prayer",
+      la: "Dóminus sit in córdibus vestris, et in lábiis vestris, in nómine Patris \u2020 et Fílii et Spíritus Sancti.",
+      es: "Que el Señor esté en vuestros corazones y en vuestros labios, en el nombre del Padre \u2020 y del Hijo y del Espíritu Santo.",
+      en: "May the Lord be in your hearts and on your lips, in the name of the Father, \u2020 and of the Son, and of the Holy Spirit.",
+      nl: "Moge de Heer in uw hart zijn en op uw lippen, in de naam van de Vader, \u2020 en de Zoon, en de Heilige Geest." },
+
+    { kind: "responseOnly", r: { la: "Amen.", es: "Amén.", en: "Amen.", nl: "Amen." } },
+
+    { kind: "verse", v: { la: "Pax.", es: "Paz.", en: "Peace.", nl: "Vrede." },
+      r: { la: "In ætérnum.", es: "Para siempre.", en: "For ever.", nl: "In eeuwigheid." } }
+  ]
+};

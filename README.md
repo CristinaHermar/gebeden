@@ -5,13 +5,12 @@ Un pequeño devocionario bilingüe (inglés / neerlandés, con opción de ver el
 ## Contenido
 
 - **Daily Prayers / Dagelijks** — Kruisteken, Credo, Onze Vader, Weesgegroet, Eer aan de Vader, Fátima-gebed, Salve Regina, Veni Sancte Spiritus.
-- **Rosary / Rozenkrans** — estructura completa (oraciones de apertura, patrón de cada tientje, las 20 misterios en 4 grupos), con un selector arriba para elegir Gozosos / Dolorosos / Gloriosos / Luminosos; el grupo del día trae un puntito dorado.
-- **Opus Dei** — oración para empezar y para terminar el rato de oración, enseñadas por san Josemaría Escrivá (fuente: opusdei.org). Se muestran en latín, con un botón "Ver traducción en español" que despliega una traducción propia (no oficial, ya que no existe una versión española ampliamente publicada de estas dos oraciones).
+- **Rosary / Rozenkrans** — estructura completa (oraciones de apertura, patrón de cada tientje, las 20 misterios en 4 grupos, oración de cierre), con selector arriba para elegir los misterios (Gozosos, Dolorosos, Gloriosos, Luminosos) y un aviso de "los misterios de hoy" según el día de la semana.
+- **Opus Dei** — oración para empezar y para terminar el rato de oración, enseñadas por san Josemaría Escrivá (fuente: opusdei.org; traducción propia al neerlandés y al latín); y las Preces completas en latín, con acceso a traducción en español (aportada por el usuario), inglés y neerlandés (traducción propia), activables línea por línea con los botones ES / EN / NL.
 
-## Controles
+## Aumentar el tamaño de letra
 
-- **A− / A+** en la barra superior: agranda o achica el texto de toda la app (se recuerda entre visitas).
-- **+ Latin / Latijn**: muestra el texto en latín debajo de cada oración (en las pestañas Daily y Rosary; en Opus Dei el latín ya está siempre visible).
+Junto al botón de Latín hay dos botones "A−" / "A+" para reducir o aumentar el tamaño del texto de toda la app. La preferencia se guarda en el dispositivo.
 
 ## Cómo publicarlo en GitHub Pages
 
@@ -32,10 +31,10 @@ Una vez instalada, funciona sin conexión (el `sw.js` guarda una copia local de 
 
 ## Personalizar
 
-- **Textos**: todo el contenido está en `prayers-data.js`, en un solo objeto por oración con las claves `en`, `nl`, `la` (y `es` cuando aplica, solo en Opus Dei). Añadir una oración nueva es copiar un bloque y cambiar el texto.
+- **Textos**: todo el contenido está en `prayers-data.js`, en un solo objeto por oración con las claves `en`, `nl`, `la`. Añadir una oración nueva es copiar un bloque y cambiar el texto.
 - **Colores**: en `styles.css`, arriba del todo, las variables `--wine`, `--gold`, `--parchment` controlan toda la paleta.
-- **Ícono**: `icon-192.png` / `icon-512.png` son una cruz simple sobre fondo vino; reemplázalos por tu propio diseño si quieres (mismo tamaño).
+- **Ícono**: `icon-192.png` / `icon-512.png` son un cruz simple sobre fondo vino; reemplázalos por tu propio diseño si quieres (mismo tamaño).
 
 ## Nota sobre las traducciones
 
-Las oraciones tradicionales (Credo, Padrenuestro, Avemaría, Salve, Fátima, Veni Sancte Spiritus) usan las traducciones neerlandesas de uso común en la liturgia católica de los Países Bajos. Las dos oraciones del Opus Dei para iniciar y terminar la oración no tienen traducción oficial ampliamente publicada en neerlandés, latín ni español, así que esas versiones son traducción propia a partir del texto en inglés de opusdei.org — no son traducciones litúrgicas oficiales.
+Las oraciones tradicionales (Credo, Padrenuestro, Avemaría, Salve, Fátima, Veni Sancte Spiritus) usan las traducciones neerlandesas de uso común en la liturgia católica de los Países Bajos. Las dos oraciones del Opus Dei para iniciar y terminar la oración no tienen traducción oficial ampliamente publicada en neerlandés ni en latín, así que esas dos versiones son traducción propia a partir del texto en inglés de opusdei.org — no son traducciones litúrgicas oficiales.
