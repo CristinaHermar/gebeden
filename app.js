@@ -211,10 +211,7 @@ function renderDaily() {
 function renderOpusDei() {
   const items = PRAYERS.filter(p => p.category === "opusdei");
   return `
-    <p class="intro-text">
-      Two short prayers to frame a time of personal prayer, as taught by St. Josemaría Escrivá.<br/>
-      Twee korte gebeden om een moment van persoonlijk gebed te omkaderen, zoals onderwezen door de heilige Jozefmaria Escrivá.
-    </p>
+    <p class="intro-text"> </p>
     ${items.map(renderPrayerCard).join("")}
     ${renderLitanyCard()}
   `;
