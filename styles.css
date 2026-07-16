@@ -120,12 +120,48 @@ body {
   margin: 14px auto 0;
   padding: 0 14px;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .lang-bar-label { display: none; }
+
+.font-size-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--parchment-2);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 10px;
+}
+
+.font-btn {
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--wine-dark);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.font-btn:active { background: var(--gold-light); }
+
+.font-indicator {
+  font-size: 0.78rem;
+  color: var(--wine-light);
+  min-width: 26px;
+  text-align: center;
+}
 
 .latin-toggle {
   font-family: inherit;
@@ -274,6 +310,47 @@ main {
   margin-bottom: 8px;
 }
 
+.es-details {
+  margin: 0 16px 16px;
+}
+
+.es-details summary {
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #3f6b4f;
+  font-weight: 600;
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border: 1px solid #a9c9b3;
+  border-radius: 999px;
+  background: #eef6f0;
+}
+
+.es-details summary::-webkit-details-marker { display: none; }
+.es-details summary::before { content: "ES"; font-size: 0.65rem; font-weight: 800; letter-spacing: 0.5px; }
+
+.prayer-spanish {
+  margin-top: 10px;
+  padding: 12px 14px;
+  background: #eef6f0;
+  border: 1px solid #a9c9b3;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: #274434;
+}
+
+.prayer-spanish-source {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: #4d7a5f;
+}
+
 .prayer-source {
   margin: 0 16px 14px;
   font-size: 0.72rem;
@@ -282,6 +359,46 @@ main {
 }
 
 /* ---------- Rosary specific ---------- */
+
+.mystery-picker {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 4px 0 16px;
+}
+
+.mystery-picker button {
+  flex: 1 1 40%;
+  font-family: inherit;
+  cursor: pointer;
+  background: var(--parchment-2);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 10px 6px;
+  font-size: 0.78rem;
+  color: var(--wine-dark);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.mystery-picker button .en { font-weight: 700; }
+.mystery-picker button .nl { font-style: italic; opacity: 0.75; font-size: 0.85em; }
+
+.mystery-picker button.selected {
+  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
+  color: var(--parchment-2);
+  border-color: var(--wine-dark);
+}
+
+.mystery-picker button .today-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  margin-left: 5px;
+}
 
 .today-banner {
   background: linear-gradient(135deg, var(--gold-light), var(--gold));

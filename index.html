@@ -13,13 +13,13 @@
   <meta name="theme-color" content="#7a1f3d" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Preces" />
+  <meta name="apple-mobile-web-app-title" content="Gebeden" />
 </head>
 <body>
 
   <header class="hero">
     <p class="kicker">EN · NL</p>
-    <h1>Preces</h1>
+    <h1>Gebeden</h1>
     <p class="subtitle">A pocket book of daily prayer<br />Een klein gebedenboek</p>
   </header>
 
@@ -36,9 +36,11 @@
   </nav>
 
   <div class="lang-bar">
-    <span class="lang-bar-label">
-      <span class="only-en">Show</span><span class="only-nl">Toon</span>
-    </span>
+    <div class="font-size-control" role="group" aria-label="Text size / Tekstgrootte">
+      <button id="font-smaller" class="font-btn" aria-label="Smaller text / Kleinere tekst">A−</button>
+      <span id="font-indicator" class="font-indicator">Aa</span>
+      <button id="font-larger" class="font-btn" aria-label="Larger text / Grotere tekst">A+</button>
+    </div>
     <button id="toggle-latin" class="latin-toggle" aria-pressed="false">
       + Latin <span class="lang-sep">/</span> Latijn
     </button>

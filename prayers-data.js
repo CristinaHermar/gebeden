@@ -94,31 +94,35 @@ const PRAYERS = [
   {
     id: "opusdei-begin",
     category: "opusdei",
-    title: { en: "To Begin Prayer", nl: "Om het Gebed te Beginnen", la: "Ad Oratiónem Incipiéndam" },
+    title: { en: "To Begin Prayer", nl: "Om het Gebed te Beginnen", la: "Ad Oratiónem Incipiéndam", es: "Para Empezar la Oración" },
     text: {
       en: "My Lord and my God, I firmly believe that you are here, that you see me, that you hear me. I adore you with profound reverence. I ask your pardon for my sins, and grace to make this time of prayer fruitful. My Immaculate Mother, Saint Joseph my father and lord, my Guardian Angel: intercede for me.",
       nl: "Mijn Heer en mijn God, ik geloof vast dat U hier aanwezig bent, dat U mij ziet, dat U mij hoort. Ik aanbid U met diepe eerbied. Ik vraag vergeving voor mijn zonden en de genade om dit gebedsmoment vruchtbaar te maken. Mijn Onbevlekte Moeder, heilige Jozef, mijn vader en heer, mijn engelbewaarder: kom voor mij tussenbeide.",
-      la: "Dómine et Deus meus, firmíter credo te hic adésse, me vidére, me audíre. Te profúnda reveréntia adóro. Véniam peto pro peccátis meis, et grátiam ut hoc tempus oratiónis fructuósum sit. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me."
+      la: "Dómine et Deus meus, firmíter credo te hic adésse, me vidére, me audíre. Te profúnda reveréntia adóro. Véniam peto pro peccátis meis, et grátiam ut hoc tempus oratiónis fructuósum sit. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me.",
+      es: "Señor mío y Dios mío, creo firmemente que estás aquí, que me ves, que me oyes. Te adoro con profunda reverencia. Te pido perdón por mis pecados y la gracia de hacer fructífero este rato de oración. Madre mía Inmaculada, san José, mi padre y señor, ángel de mi guarda: intercended por mí."
     },
     source: {
       en: "Prayer taught by St. Josemaría Escrivá — opusdei.org",
       nl: "Gebed onderwezen door de heilige Jozefmaria Escrivá — opusdei.org (eigen vertaling)",
-      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)"
+      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)",
+      es: "Oración enseñada por san Josemaría Escrivá — opusdei.org. No existe una traducción oficial al español ampliamente publicada; esta es una traducción propia, no litúrgica."
     }
   },
   {
     id: "opusdei-end",
     category: "opusdei",
-    title: { en: "To End Prayer", nl: "Om het Gebed te Besluiten", la: "Ad Oratiónem Claudéndam" },
+    title: { en: "To End Prayer", nl: "Om het Gebed te Besluiten", la: "Ad Oratiónem Claudéndam", es: "Para Terminar la Oración" },
     text: {
       en: "I thank you, my God, for the good resolutions, affections, and inspirations you have communicated to me in this meditation. I ask your help to put them into effect. My Immaculate Mother, Saint Joseph my father and lord, my Guardian Angel: intercede for me.",
       nl: "Ik dank U, mijn God, voor de goede voornemens, gevoelens en ingevingen die U mij tijdens deze overweging hebt geschonken. Ik vraag uw hulp om ze in praktijk te brengen. Mijn Onbevlekte Moeder, heilige Jozef, mijn vader en heer, mijn engelbewaarder: kom voor mij tussenbeide.",
-      la: "Grátias tibi ago, Deus meus, pro bonis propósitis, afféctibus et inspiratiónibus quas mihi in hac meditatióne communicásti. Auxílium tuum peto ut ea ad efféctum perdúcam. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me."
+      la: "Grátias tibi ago, Deus meus, pro bonis propósitis, afféctibus et inspiratiónibus quas mihi in hac meditatióne communicásti. Auxílium tuum peto ut ea ad efféctum perdúcam. Mater mea Immaculáta, sancte Ioseph pater et dómine mi, Ángele Custos: intercédite pro me.",
+      es: "Te doy gracias, Dios mío, por los buenos propósitos, afectos e inspiraciones que me has comunicado en esta meditación. Te pido tu ayuda para llevarlos a la práctica. Madre mía Inmaculada, san José, mi padre y señor, ángel de mi guarda: intercended por mí."
     },
     source: {
       en: "Prayer taught by St. Josemaría Escrivá — opusdei.org",
       nl: "Gebed onderwezen door de heilige Jozefmaria Escrivá — opusdei.org (eigen vertaling)",
-      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)"
+      la: "Oratio a S. Iosephmaria Escrivá tradita — opusdei.org (translatio propria)",
+      es: "Oración enseñada por san Josemaría Escrivá — opusdei.org. No existe una traducción oficial al español ampliamente publicada; esta es una traducción propia, no litúrgica."
     }
   }
 ];
