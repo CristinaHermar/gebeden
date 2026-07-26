@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Gebeden</title>
+  <title>Preces</title>
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json" />
@@ -13,19 +13,19 @@
   <meta name="theme-color" content="#7a1f3d" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Gebeden" />
+  <meta name="apple-mobile-web-app-title" content="Preces" />
 </head>
 <body>
 
   <header class="hero">
     <p class="kicker">EN · NL</p>
-    <h1>Gebeden</h1>
-    <p class="subtitle">My pocket book of daily prayer<br />Een klein gebedenboek</p>
+    <h1>Preces</h1>
+    <p class="subtitle">A pocket book of daily prayer<br />Een klein gebedenboek</p>
   </header>
 
   <nav class="tabs" id="tabs">
     <button class="tab active" data-tab="daily">
-      <span class="tab-en">Daily Prayersssssss</span><span class="tab-sep">/</span><span class="tab-nl">Dagelijks</span>
+      <span class="tab-en">Daily Prayers</span><span class="tab-sep">/</span><span class="tab-nl">Dagelijks</span>
     </button>
     <button class="tab" data-tab="rosary">
       <span class="tab-en">Rosary</span><span class="tab-sep">/</span><span class="tab-nl">Rozenkrans</span>
@@ -36,13 +36,12 @@
   </nav>
 
   <div class="lang-bar">
-    <div class="font-size-control" role="group" aria-label="Text size / Tekstgrootte">
-      <button id="font-decrease" class="font-size-btn" aria-label="Smaller text / Kleinere tekst">A−</button>
-      <button id="font-increase" class="font-size-btn" aria-label="Larger text / Grotere tekst">A+</button>
-    </div>
     <span class="lang-bar-label">
       <span class="only-en">Show</span><span class="only-nl">Toon</span>
     </span>
+    <button id="toggle-german" class="latin-toggle" aria-pressed="false">
+      + German <span class="lang-sep">/</span> Duits
+    </button>
     <button id="toggle-latin" class="latin-toggle" aria-pressed="false">
       + Latin <span class="lang-sep">/</span> Latijn
     </button>
@@ -51,7 +50,7 @@
   <main id="content"></main>
 
   <footer>
-    <p class="footer-quote">“MC”</p>
+    <p class="footer-quote">“Ad maiorem Dei gloriam”</p>
   </footer>
 
   <script src="prayers-data.js"></script>

@@ -1,52 +1,40 @@
 /* ============================================================
-   GEBEDEN — app.js
+   PRECES — app.js
    ============================================================ */
-
-const FONT_STEPS = [15, 16, 17, 18, 19, 21, 23, 25, 27];
-const FONT_STORAGE_KEY = "gebeden-font-step";
-const MYSTERY_STORAGE_KEY = "gebeden-selected-mystery";
-
-function todayMysteryKey() {
-  const day = new Date().getDay(); // 0 = Sunday
-  return Object.keys(MYSTERIES).find(key => MYSTERIES[key].days.includes(day));
-}
-
-function loadFontStep() {
-  const saved = parseInt(localStorage.getItem(FONT_STORAGE_KEY), 10);
-  if (!Number.isNaN(saved) && saved >= 0 && saved < FONT_STEPS.length) return saved;
-  return 1; // default matches the base 16px root
-}
-
-function loadSelectedMystery() {
-  const saved = localStorage.getItem(MYSTERY_STORAGE_KEY);
-  if (saved && MYSTERIES[saved]) return saved;
-  return todayMysteryKey();
-}
 
 const state = {
   tab: "daily",
   showLatin: false,
-  fontStep: loadFontStep(),
-  selectedMystery: loadSelectedMystery(),
-  litanyLangs: { es: false, en: false, nl: false }
+  showGerman: false
 };
 
 const contentEl = document.getElementById("content");
 const tabsEl = document.getElementById("tabs");
 const latinToggleEl = document.getElementById("toggle-latin");
-const fontDecreaseEl = document.getElementById("font-decrease");
-const fontIncreaseEl = document.getElementById("font-increase");
+const germanToggleEl = document.getElementById("toggle-german");
 
 function findPrayer(id) {
   return PRAYERS.find(p => p.id === id);
 }
 
-/* ---------- Font size control ---------- */
+/* ---------- Jump-to-prayer selector ---------- */
 
-function applyFontSize() {
-  document.documentElement.style.fontSize = FONT_STEPS[state.fontStep] + "px";
-  if (fontDecreaseEl) fontDecreaseEl.disabled = state.fontStep === 0;
-  if (fontIncreaseEl) fontIncreaseEl.disabled = state.fontStep === FONT_STEPS.length - 1;
+function renderJumpNav(items, navId) {
+  const options = items
+    .map(it => `<option value="${it.id}">${it.en} / ${it.nl}</option>`)
+    .join("");
+
+  return `
+    <div class="jump-nav-wrap">
+      <label class="jump-nav-label" for="${navId}">
+        Jump to <span class="jump-nav-nl">/ Ga naar</span>
+      </label>
+      <select class="jump-nav" id="${navId}">
+        <option value="">— select / kies —</option>
+        ${options}
+      </select>
+    </div>
+  `;
 }
 
 /* ---------- Card renderers ---------- */
@@ -54,7 +42,7 @@ function applyFontSize() {
 function renderPrayerCard(prayer) {
   const t = prayer.text;
   let html = `
-    <article class="prayer-card">
+    <article class="prayer-card" id="prayer-${prayer.id}">
       <div class="prayer-title">
         <span class="col-title en">${prayer.title.en}</span>
         <span class="col-title nl">${prayer.title.nl}</span>
@@ -64,6 +52,15 @@ function renderPrayerCard(prayer) {
         <div class="col col-nl">${t.nl}</div>
       </div>
   `;
+
+  if (state.showGerman) {
+    html += `
+      <div class="prayer-german">
+        <span class="german-label">Deutsch · ${prayer.title.de}</span>
+        ${t.de}
+      </div>
+    `;
+  }
 
   if (state.showLatin) {
     html += `
@@ -82,126 +79,35 @@ function renderPrayerCard(prayer) {
           <div class="col col-en" style="border-right:1px solid var(--line); padding:0 10px 0 0;">${prayer.note.en}</div>
           <div class="col col-nl" style="padding:0 0 0 10px;">${prayer.note.nl}</div>
         </div>
+        ${state.showGerman ? `<div class="prayer-german" style="margin:10px 0 0;">${prayer.note.de}</div>` : ""}
         ${state.showLatin ? `<div class="prayer-latin" style="margin:10px 0 0;">${prayer.note.la}</div>` : ""}
       </div>
     `;
   }
 
   if (prayer.source) {
-    html += `<p class="prayer-source">${state.showLatin ? prayer.source.la : (prayer.source.en + " · " + prayer.source.nl)}</p>`;
+    let sourceText;
+    if (state.showLatin) {
+      sourceText = prayer.source.la;
+    } else {
+      const parts = [prayer.source.en, prayer.source.nl];
+      if (state.showGerman && prayer.source.de) parts.push(prayer.source.de);
+      sourceText = parts.join(" · ");
+    }
+    html += `<p class="prayer-source">${sourceText}</p>`;
   }
 
   html += `</article>`;
   return html;
 }
 
-/* ---------- Preces litany (Opus Dei) ---------- */
-
-const LITANY_LANG_LABELS = { es: "ES", en: "EN", nl: "NL" };
-
-function litanyTranslationsHtml(entry) {
-  const active = ["es", "en", "nl"].filter(l => state.litanyLangs[l]);
-  if (!active.length) return "";
-  return `
-    <div class="litany-translations">
-      ${active.map(l => `<div class="litany-tr litany-tr-${l}"><span class="litany-tr-tag">${LITANY_LANG_LABELS[l]}</span>${entry[l]}</div>`).join("")}
-    </div>
-  `;
-}
-
-function renderLitanyItem(item) {
-  if (item.kind === "label") {
-    return `
-      <div class="litany-label">
-        <div class="litany-la">${item.la}</div>
-        ${litanyTranslationsHtml(item)}
-      </div>
-    `;
-  }
-  if (item.kind === "rubric") {
-    return `
-      <div class="litany-rubric">
-        <div class="litany-la">${item.la}</div>
-        ${litanyTranslationsHtml(item)}
-      </div>
-    `;
-  }
-  if (item.kind === "prayer") {
-    return `
-      <div class="litany-prayer">
-        <div class="litany-la">${item.la}</div>
-        ${litanyTranslationsHtml(item)}
-      </div>
-    `;
-  }
-  if (item.kind === "responseOnly") {
-    return `
-      <div class="litany-verse litany-response-only">
-        <div class="litany-line litany-r">
-          <span class="litany-tag">R.</span>
-          <span class="litany-la">${item.r.la}</span>
-        </div>
-        ${litanyTranslationsHtml(item.r)}
-      </div>
-    `;
-  }
-  if (item.kind === "verse") {
-    return `
-      <div class="litany-verse">
-        <div class="litany-line litany-v">
-          <span class="litany-tag">V.</span>
-          <span class="litany-la">${item.v.la}</span>
-        </div>
-        ${litanyTranslationsHtml(item.v)}
-        <div class="litany-line litany-r">
-          <span class="litany-tag">R.</span>
-          <span class="litany-la">${item.r.la}</span>
-        </div>
-        ${litanyTranslationsHtml(item.r)}
-      </div>
-    `;
-  }
-  return "";
-}
-
-function renderLitanyCard() {
-  const lit = PRECES_LITANY;
-  const langButtons = ["es", "en", "nl"].map(l => `
-    <button class="litany-lang-btn" data-lang="${l}" aria-pressed="${state.litanyLangs[l]}">${LITANY_LANG_LABELS[l]}</button>
-  `).join("");
-
-  return `
-    <article class="prayer-card litany-card">
-      <div class="prayer-title">
-        <span class="col-title en">Preces</span>
-        <span class="col-title nl">Preces</span>
-      </div>
-      <div class="litany-intro">
-        <p class="intro-text" style="margin:0 0 10px;">
-          Latin text, prayed in the Prelature of Opus Dei. Tap ES / EN / NL to also show a translation for each line.<br/>
-          Latijnse tekst, gebeden in het Opus Dei. Tik op ES / EN / NL om ook een vertaling per regel te tonen.
-        </p>
-        <div class="litany-lang-switch" id="litany-lang-switch">
-          ${langButtons}
-        </div>
-      </div>
-      <div class="litany-body">
-        ${lit.items.map(renderLitanyItem).join("")}
-      </div>
-      <p class="prayer-source">${lit.source.en} · ${lit.source.nl}</p>
-    </article>
-  `;
-}
-
 /* ---------- Tab: Daily ---------- */
 
 function renderDaily() {
   const items = PRAYERS.filter(p => p.category === "daily");
+  const navItems = items.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, nl: p.title.nl }));
   return `
-    <p class="intro-text">
-      Common prayers for morning, evening, and any moment of the day.<br/>
-      Gewone gebeden voor ochtend, avond en elk moment van de dag.
-    </p>
+    ${renderJumpNav(navItems, "jump-daily")}
     ${items.map(renderPrayerCard).join("")}
   `;
 }
@@ -210,10 +116,14 @@ function renderDaily() {
 
 function renderOpusDei() {
   const items = PRAYERS.filter(p => p.category === "opusdei");
+  const navItems = items.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, nl: p.title.nl }));
   return `
-    <p class="intro-text"> </p>
+    <p class="intro-text">
+      Two short prayers to frame a time of personal prayer, as taught by St. Josemaría Escrivá.<br/>
+      Twee korte gebeden om een moment van persoonlijk gebed te omkaderen, zoals onderwezen door de heilige Jozefmaria Escrivá.
+    </p>
+    ${renderJumpNav(navItems, "jump-opusdei")}
     ${items.map(renderPrayerCard).join("")}
-    ${renderLitanyCard()}
   `;
 }
 
@@ -226,6 +136,7 @@ function decadeStepsHtml() {
         <li>
           <span class="en">${step.label.en}</span>
           <span class="nl">${step.label.nl}</span>
+          ${state.showGerman ? `<span class="de">${step.label.de}</span>` : ""}
         </li>
       `).join("")}
     </ul>
@@ -235,16 +146,18 @@ function decadeStepsHtml() {
 function mysterySetHtml(key, isToday) {
   const set = MYSTERIES[key];
   return `
-    <div class="mystery-set ${isToday ? "is-today" : ""}">
+    <div class="mystery-set ${isToday ? "is-today" : ""}" id="mystery-${key}">
       <div class="mystery-set-title">
         <span class="en">${set.name.en}</span>
         <span class="nl">${set.name.nl}</span>
       </div>
+      ${state.showGerman ? `<div class="mystery-set-title-de">${set.name.de}</div>` : ""}
       <ol class="mystery-list">
         ${set.items.map(item => `
           <li>
             <span class="en">${item.en}</span>
             <span class="nl">${item.nl}</span>
+            ${state.showGerman ? `<span class="de">${item.de}</span>` : ""}
             ${state.showLatin ? `<span class="la">${item.la}</span>` : ""}
           </li>
         `).join("")}
@@ -253,52 +166,41 @@ function mysterySetHtml(key, isToday) {
   `;
 }
 
-function mysterySelectorHtml() {
-  const todayKey = todayMysteryKey();
-  const order = ["joyful", "sorrowful", "glorious", "luminous"];
-  return `
-    <div class="mystery-selector" id="mystery-selector">
-      ${order.map(key => {
-        const set = MYSTERIES[key];
-        const isSelected = key === state.selectedMystery;
-        const isToday = key === todayKey;
-        return `
-          <button class="mystery-chip ${isSelected ? "active" : ""}" data-mystery="${key}" aria-pressed="${isSelected}">
-            <span class="en">${set.name.en}</span>
-            <span class="nl">${set.name.nl}</span>
-            ${isToday ? `<span class="mystery-chip-today">•</span>` : ""}
-          </button>
-        `;
-      }).join("")}
-    </div>
-  `;
+function todayMysteryKey() {
+  const day = new Date().getDay(); // 0 = Sunday
+  return Object.keys(MYSTERIES).find(key => MYSTERIES[key].days.includes(day));
 }
 
 function renderRosary() {
   const todayKey = todayMysteryKey();
-  const selectedKey = state.selectedMystery;
-  const isToday = selectedKey === todayKey;
-  const selectedSet = MYSTERIES[selectedKey];
-
+  const todaySet = MYSTERIES[todayKey];
   const openingPrayers = ["signum-crucis", "credo", "pater-noster", "ave-maria", "gloria-patri"]
     .map(findPrayer);
   const closing = findPrayer(CLOSING_REF);
   const fatima = findPrayer("fatima");
 
+  const order = ["joyful", "sorrowful", "glorious", "luminous"];
+
+  const navItems = [
+    { id: "section-opening", en: "Opening Prayers", nl: "Beginnende gebeden" },
+    { id: "section-decade", en: "Each Decade", nl: "Elk tientje" },
+    { id: "prayer-fatima", en: fatima.title.en, nl: fatima.title.nl },
+    ...order.map(key => ({ id: `mystery-${key}`, en: MYSTERIES[key].name.en, nl: MYSTERIES[key].name.nl })),
+    { id: "section-closing", en: "Closing Prayer", nl: "Slotgebed" }
+  ];
+
   return `
-    ${mysterySelectorHtml()}
+    ${renderJumpNav(navItems, "jump-rosary")}
 
     <div class="today-banner">
-      <strong>${selectedSet.name.en} · ${selectedSet.name.nl}</strong>
-      <span>${isToday
-        ? "Today's mysteries — De geheimen van vandaag"
-        : "Selected mysteries — Geselecteerde geheimen"}</span>
+      <strong>${todaySet.name.en} · ${todaySet.name.nl}${state.showGerman ? " · " + todaySet.name.de : ""}</strong>
+      <span>Today's mysteries — De geheimen van vandaag</span>
     </div>
 
-    <h2 class="section-title"><span class="en">1. Opening Prayers</span> <span class="nl">Beginnende gebeden</span></h2>
+    <h2 class="section-title" id="section-opening"><span class="en">1. Opening Prayers</span> <span class="nl">Beginnende gebeden</span></h2>
     ${[...new Map(openingPrayers.map(p => [p.id, p])).values()].map(renderPrayerCard).join("")}
 
-    <h2 class="section-title"><span class="en">2. Each Decade</span> <span class="nl">Elk tientje</span></h2>
+    <h2 class="section-title" id="section-decade"><span class="en">2. Each Decade</span> <span class="nl">Elk tientje</span></h2>
     <div class="prayer-card" style="padding:6px 4px;">
       ${decadeStepsHtml()}
     </div>
@@ -306,9 +208,9 @@ function renderRosary() {
     ${renderPrayerCard(fatima)}
 
     <h2 class="section-title"><span class="en">3. The Mysteries</span> <span class="nl">De Geheimen</span></h2>
-    ${mysterySetHtml(selectedKey, isToday)}
+    ${order.map(key => mysterySetHtml(key, key === todayKey)).join("")}
 
-    <h2 class="section-title"><span class="en">4. Closing Prayer</span> <span class="nl">Slotgebed</span></h2>
+    <h2 class="section-title" id="section-closing"><span class="en">4. Closing Prayer</span> <span class="nl">Slotgebed</span></h2>
     ${renderPrayerCard(closing)}
   `;
 }
@@ -339,43 +241,24 @@ latinToggleEl.addEventListener("click", () => {
   render();
 });
 
-if (fontDecreaseEl && fontIncreaseEl) {
-  fontDecreaseEl.addEventListener("click", () => {
-    if (state.fontStep > 0) {
-      state.fontStep -= 1;
-      localStorage.setItem(FONT_STORAGE_KEY, String(state.fontStep));
-      applyFontSize();
-    }
-  });
-  fontIncreaseEl.addEventListener("click", () => {
-    if (state.fontStep < FONT_STEPS.length - 1) {
-      state.fontStep += 1;
-      localStorage.setItem(FONT_STORAGE_KEY, String(state.fontStep));
-      applyFontSize();
-    }
-  });
-}
-
-/* Delegated clicks for dynamically-rendered controls */
-contentEl.addEventListener("click", (e) => {
-  const mysteryBtn = e.target.closest(".mystery-chip");
-  if (mysteryBtn) {
-    state.selectedMystery = mysteryBtn.dataset.mystery;
-    localStorage.setItem(MYSTERY_STORAGE_KEY, state.selectedMystery);
-    render();
-    return;
-  }
-
-  const langBtn = e.target.closest(".litany-lang-btn");
-  if (langBtn) {
-    const lang = langBtn.dataset.lang;
-    state.litanyLangs[lang] = !state.litanyLangs[lang];
-    render();
-    return;
-  }
+germanToggleEl.addEventListener("click", () => {
+  state.showGerman = !state.showGerman;
+  germanToggleEl.setAttribute("aria-pressed", String(state.showGerman));
+  render();
 });
 
-applyFontSize();
+/* Jump-to-prayer selectors are re-created on every render, so listen
+   via delegation on the content container. */
+contentEl.addEventListener("change", (e) => {
+  const select = e.target.closest(".jump-nav");
+  if (!select || !select.value) return;
+  const target = document.getElementById(select.value);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+  select.value = "";
+});
+
 render();
 
 /* ---------- Service worker registration (PWA) ---------- */

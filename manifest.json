@@ -1,6 +1,6 @@
 {
-  "name": "Gebeden — Devotional",
-  "short_name": "Gebeden",
+  "name": "Preces — Devotional",
+  "short_name": "Preces",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

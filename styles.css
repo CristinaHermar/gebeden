@@ -120,38 +120,13 @@ body {
   margin: 14px auto 0;
   padding: 0 14px;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: flex-end;
   align-items: center;
   gap: 10px;
 }
 
 .lang-bar-label { display: none; }
-
-.font-size-control {
-  display: flex;
-  gap: 4px;
-}
-
-.font-size-btn {
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 0.82rem;
-  color: var(--wine-dark);
-  background: var(--parchment-2);
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  width: 38px;
-  height: 34px;
-  cursor: pointer;
-}
-
-.font-size-btn:disabled {
-  opacity: 0.4;
-  cursor: default;
-}
-
-.font-size-btn:first-child { font-size: 0.7rem; }
-.font-size-btn:last-child { font-size: 0.95rem; }
 
 .latin-toggle {
   font-family: inherit;
@@ -180,6 +155,45 @@ main {
   max-width: 720px;
   margin: 18px auto 0;
   padding: 0 14px;
+}
+
+/* ---------- Jump-to-prayer selector ---------- */
+
+.jump-nav-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--parchment-2);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin: 0 0 20px;
+  box-shadow: 0 8px 20px var(--shadow);
+}
+
+.jump-nav-label {
+  flex-shrink: 0;
+  font-size: 0.78rem;
+  color: var(--wine-dark);
+  letter-spacing: 0.2px;
+  opacity: 0.85;
+}
+
+.jump-nav-label .jump-nav-nl {
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.jump-nav {
+  flex: 1;
+  min-width: 0;
+  font-family: inherit;
+  font-size: 0.85rem;
+  color: var(--wine-dark);
+  background: var(--parchment);
+  border: 1px solid var(--gold);
+  border-radius: 8px;
+  padding: 8px 10px;
 }
 
 .section-title {
@@ -300,6 +314,33 @@ main {
   margin-bottom: 8px;
 }
 
+.prayer-german {
+  margin: 0 16px 16px;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, #f4e8ec, #ecd8df);
+  border: 1px solid var(--wine-light);
+  border-radius: 10px;
+  font-style: italic;
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--wine-dark);
+}
+
+.prayer-german .german-label {
+  display: block;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--parchment-2);
+  background: var(--wine-light);
+  padding: 2px 8px;
+  border-radius: 999px;
+  width: fit-content;
+  margin-bottom: 8px;
+}
+
 .prayer-source {
   margin: 0 16px 14px;
   font-size: 0.72rem;
@@ -307,172 +348,7 @@ main {
   font-style: italic;
 }
 
-/* ---------- Litany (Preces / Opus Dei) ---------- */
-
-.litany-intro {
-  padding: 12px 16px 4px;
-}
-
-.litany-lang-switch {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.litany-lang-btn {
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 0.78rem;
-  letter-spacing: 0.5px;
-  color: var(--wine-dark);
-  background: var(--parchment);
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  padding: 6px 14px;
-  cursor: pointer;
-}
-
-.litany-lang-btn[aria-pressed="true"] {
-  background: var(--gold);
-  color: var(--wine-dark);
-  font-weight: 700;
-}
-
-.litany-body {
-  padding: 6px 16px 14px;
-}
-
-.litany-verse,
-.litany-label,
-.litany-rubric,
-.litany-prayer {
-  padding: 9px 0;
-  border-bottom: 1px dashed var(--line);
-}
-
-.litany-body > .litany-verse:last-child,
-.litany-body > .litany-prayer:last-child {
-  border-bottom: none;
-}
-
-.litany-label {
-  color: var(--wine);
-  font-weight: 700;
-  font-style: italic;
-}
-
-.litany-rubric {
-  font-style: italic;
-  font-size: 0.85rem;
-  color: var(--rubric);
-}
-
-.litany-line {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
-  font-size: 0.92rem;
-  line-height: 1.55;
-}
-
-.litany-tag {
-  flex: 0 0 auto;
-  font-weight: 700;
-  color: var(--gold);
-  font-size: 0.82rem;
-}
-
-.litany-la {
-  font-style: italic;
-  color: var(--wine-dark);
-}
-
-.litany-prayer .litany-la {
-  font-size: 0.92rem;
-  line-height: 1.6;
-}
-
-.litany-translations {
-  margin: 4px 0 2px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.litany-tr {
-  font-size: 0.86rem;
-  line-height: 1.5;
-  color: #4a3c2c;
-}
-
-.litany-tr-tag {
-  font-weight: 700;
-  font-size: 0.68rem;
-  letter-spacing: 0.5px;
-  color: var(--wine-light);
-  margin-right: 6px;
-}
-
-.litany-response-only {
-  padding-top: 0;
-}
-
 /* ---------- Rosary specific ---------- */
-
-.mystery-selector {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
-}
-
-.mystery-chip {
-  flex: 1 1 calc(50% - 4px);
-  min-width: 140px;
-  font-family: inherit;
-  background: var(--parchment-2);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 12px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 1px;
-  position: relative;
-  box-shadow: 0 4px 12px var(--shadow);
-}
-
-.mystery-chip .en {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--wine-dark);
-}
-
-.mystery-chip .nl {
-  font-size: 0.76rem;
-  font-style: italic;
-  color: var(--wine-light);
-}
-
-.mystery-chip.active {
-  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
-  border-color: var(--wine-dark);
-}
-
-.mystery-chip.active .en,
-.mystery-chip.active .nl {
-  color: var(--parchment-2);
-}
-
-.mystery-chip-today {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  color: var(--gold);
-  font-size: 1.1rem;
-  line-height: 1;
-}
 
 .today-banner {
   background: linear-gradient(135deg, var(--gold-light), var(--gold));
@@ -501,13 +377,22 @@ main {
   border-bottom: 1px dashed var(--line);
   font-size: 0.85rem;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 10px;
+  gap: 2px 10px;
 }
 
 .decade-steps li:last-child { border-bottom: none; }
 .decade-steps .en { color: var(--ink); }
 .decade-steps .nl { color: var(--wine-light); font-style: italic; text-align: right; }
+.decade-steps .de {
+  flex-basis: 100%;
+  text-align: right;
+  color: var(--wine-dark);
+  font-style: italic;
+  opacity: 0.8;
+  font-size: 0.92em;
+}
 
 .mystery-set {
   background: var(--parchment-2);
@@ -542,6 +427,14 @@ main {
   font-size: 0.85rem;
 }
 
+.mystery-set-title-de {
+  margin: -4px 0 8px;
+  font-style: italic;
+  color: var(--wine-dark);
+  opacity: 0.75;
+  font-size: 0.82rem;
+}
+
 .mystery-list {
   margin: 0;
   padding-left: 0;
@@ -569,6 +462,14 @@ main {
 
 .mystery-list .en { color: var(--ink); }
 .mystery-list .nl { font-style: italic; color: #4a3c2c; }
+.mystery-list .de {
+  grid-column: 2 / span 2;
+  font-style: italic;
+  color: var(--wine-light);
+  font-size: 0.8rem;
+  opacity: 0.85;
+  padding-top: 2px;
+}
 .mystery-list .la {
   grid-column: 2 / span 2;
   font-style: italic;
