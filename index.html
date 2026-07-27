@@ -32,9 +32,16 @@
     <button class="tab" data-tab="opusdei">
       <span class="tab-en">Opus Dei</span><span class="tab-sep">/</span><span class="tab-nl">Opus Dei</span>
     </button>
+    <button class="tab" data-tab="settings">
+      <span class="tab-en">Settings</span><span class="tab-sep">/</span><span class="tab-nl">Instellingen</span>
+    </button>
   </nav>
 
   <div class="lang-bar">
+    <div class="font-size-control" id="font-size-control" role="group" aria-label="Text size">
+      <button class="font-size-btn" data-action="decrease" aria-label="Decrease text size">A−</button>
+      <button class="font-size-btn" data-action="increase" aria-label="Increase text size">A+</button>
+    </div>
     <div class="lang-switch" id="lang-switch" role="group" aria-label="Second language">
       <button class="lang-switch-btn active" data-lang="nl">Nederlands</button>
       <button class="lang-switch-btn" data-lang="de">Deutsch</button>
@@ -45,6 +52,8 @@
   </div>
 
   <main id="content"></main>
+
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top" hidden>↑</button>
 
   <footer>
     <p class="footer-quote">“Ad maiorem Dei gloriam”</p>

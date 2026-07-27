@@ -1,12 +1,72 @@
 /* ============================================================
-   PRECES — app.js
+   GEBEDEN — app.js
    ============================================================ */
+
+const FONT_SIZES = [14, 16, 18, 20, 22, 24];
+const DEFAULT_FONT_SIZE_INDEX = 1; // 16px
+
+const STORAGE_KEYS = {
+  tab: "gebeden-tab",
+  secondLang: "gebeden-second-lang",
+  showLatin: "gebeden-show-latin",
+  darkMode: "gebeden-dark-mode",
+  vibration: "gebeden-vibration",
+  fontSizeIndex: "gebeden-font-size-index"
+};
 
 const state = {
   tab: "daily",
   showLatin: false,
-  secondLang: "nl" // "nl" or "de" — which language shows in the right-hand column
+  secondLang: "nl", // "nl" or "de" — which language shows in the right-hand column
+  selectedMystery: null, // set once MYSTERIES is available, see renderRosary
+  fontSizeIndex: DEFAULT_FONT_SIZE_INDEX,
+  darkMode: false,
+  vibration: true
 };
+
+/* ---------- Persistence ---------- */
+
+function loadSetting(key, fallback) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw === null ? fallback : raw;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+function saveSetting(key, value) {
+  try {
+    localStorage.setItem(key, String(value));
+  } catch (e) {
+    /* localStorage unavailable (private browsing, etc.) — ignore */
+  }
+}
+
+function loadAllSettings() {
+  const savedTab = loadSetting(STORAGE_KEYS.tab, state.tab);
+  if (["daily", "rosary", "opusdei", "settings"].includes(savedTab)) state.tab = savedTab;
+
+  const savedLang = loadSetting(STORAGE_KEYS.secondLang, state.secondLang);
+  if (savedLang === "nl" || savedLang === "de") state.secondLang = savedLang;
+
+  state.showLatin = loadSetting(STORAGE_KEYS.showLatin, String(state.showLatin)) === "true";
+  state.darkMode = loadSetting(STORAGE_KEYS.darkMode, String(state.darkMode)) === "true";
+  state.vibration = loadSetting(STORAGE_KEYS.vibration, String(state.vibration)) === "true";
+
+  const savedFontIdx = parseInt(loadSetting(STORAGE_KEYS.fontSizeIndex, String(state.fontSizeIndex)), 10);
+  if (!Number.isNaN(savedFontIdx) && savedFontIdx >= 0 && savedFontIdx < FONT_SIZES.length) {
+    state.fontSizeIndex = savedFontIdx;
+  }
+}
+
+/* ---------- Haptics ---------- */
+
+function vibrate(ms = 12) {
+  if (state.vibration && navigator.vibrate) {
+    try { navigator.vibrate(ms); } catch (e) { /* ignore */ }
+  }
+}
 
 /* UI chrome strings that follow the chosen second language */
 const UI = {
@@ -15,6 +75,8 @@ const UI = {
   opening: { en: "Opening Prayers", nl: "Beginnende gebeden", de: "Eröffnungsgebete" },
   closing: { en: "Closing Prayer", nl: "Slotgebed", de: "Schlussgebet" },
   todaysMysteries: { en: "Today's mysteries", nl: "De geheimen van vandaag", de: "Die Geheimnisse von heute" },
+  chooseMystery: { en: "Choose which mysteries to pray", nl: "Kies welke geheimen u wilt bidden", de: "Wähle, welche Geheimnisse du beten möchtest" },
+  mysteriesNav: { en: "The Mysteries", nl: "De Geheimen", de: "Die Geheimnisse" },
   opusDeiIntro: {
     en: "Two short prayers to frame a time of personal prayer, as taught by St. Josemaría Escrivá.",
     nl: "Twee korte gebeden om een moment van persoonlijk gebed te omkaderen, zoals onderwezen door de heilige Jozefmaria Escrivá.",
@@ -22,13 +84,44 @@ const UI = {
   },
   tabDaily: { nl: "Dagelijks", de: "Täglich" },
   tabRosary: { nl: "Rozenkrans", de: "Rosenkranz" },
-  tabOpusDei: { nl: "Opus Dei", de: "Opus Dei" }
+  tabOpusDei: { nl: "Opus Dei", de: "Opus Dei" },
+  tabSettings: { en: "Settings", nl: "Instellingen", de: "Einstellungen" },
+  settingsLanguage: { en: "Default second language", nl: "Standaard tweede taal", de: "Standard-Zweitsprache" },
+  settingsLanguageDesc: {
+    en: "Which language appears next to English on every prayer.",
+    nl: "Welke taal naast het Engels verschijnt bij elk gebed.",
+    de: "Welche Sprache neben Englisch bei jedem Gebet erscheint."
+  },
+  settingsLatin: { en: "Show Latin by default", nl: "Toon Latijn standaard", de: "Latein standardmäßig anzeigen" },
+  settingsLatinDesc: {
+    en: "Always show the Latin text alongside each prayer.",
+    nl: "Toon altijd de Latijnse tekst naast elk gebed.",
+    de: "Den lateinischen Text immer neben jedem Gebet anzeigen."
+  },
+  settingsDark: { en: "Dark mode", nl: "Donkere modus", de: "Dunkler Modus" },
+  settingsDarkDesc: {
+    en: "Easier on the eyes for night prayer.",
+    nl: "Rustiger voor de ogen bij avondgebed.",
+    de: "Angenehmer für die Augen beim Abendgebet."
+  },
+  settingsVibration: { en: "Vibration", nl: "Trilling", de: "Vibration" },
+  settingsVibrationDesc: {
+    en: "Brief haptic feedback when switching tabs or selecting.",
+    nl: "Korte trilfeedback bij het wisselen van tabblad of selecteren.",
+    de: "Kurze haptische Rückmeldung beim Wechseln oder Auswählen."
+  },
+  settingsFontSize: { en: "Text size", nl: "Tekstgrootte", de: "Textgröße" },
+  settingsReset: { en: "Reset to defaults", nl: "Terugzetten naar standaard", de: "Auf Standard zurücksetzen" },
+  on: { en: "On", nl: "Aan", de: "An" },
+  off: { en: "Off", nl: "Uit", de: "Aus" }
 };
 
 const contentEl = document.getElementById("content");
 const tabsEl = document.getElementById("tabs");
 const latinToggleEl = document.getElementById("toggle-latin");
 const langSwitchEl = document.getElementById("lang-switch");
+const fontSizeControlEl = document.getElementById("font-size-control");
+const backToTopEl = document.getElementById("back-to-top");
 
 function findPrayer(id) {
   return PRAYERS.find(p => p.id === id);
@@ -135,6 +228,28 @@ function renderOpusDei() {
 
 /* ---------- Tab: Rosary ---------- */
 
+function mysterySelectorHtml(selectedKey, todayKey) {
+  const lang2 = state.secondLang;
+  const order = ["joyful", "sorrowful", "glorious", "luminous"];
+  return `
+    <div class="mystery-select-wrap" id="mystery-selector">
+      <p class="mystery-select-label">${UI.chooseMystery.en} <span class="mystery-select-label-nl">/ ${UI.chooseMystery[lang2]}</span></p>
+      <div class="mystery-select">
+        ${order.map(key => {
+          const set = MYSTERIES[key];
+          return `
+            <button class="mystery-select-btn ${key === selectedKey ? "active" : ""}" data-mystery="${key}">
+              <span class="en">${set.name.en}</span>
+              <span class="nl">${set.name[lang2]}</span>
+              ${key === todayKey ? `<span class="today-dot" title="Today · Vandaag"></span>` : ""}
+            </button>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
 function mysterySetHtml(key, isToday) {
   const set = MYSTERIES[key];
   const lang2 = state.secondLang;
@@ -171,12 +286,12 @@ function renderRosary() {
   const fatima = findPrayer("fatima");
   const threeHailMarys = findPrayer("three-hail-marys");
 
-  const order = ["joyful", "sorrowful", "glorious", "luminous"];
+  if (!state.selectedMystery) state.selectedMystery = todayKey;
 
   const navItems = [
     { id: "section-opening", en: UI.opening.en, second: UI.opening[lang2] },
     { id: "prayer-fatima", en: fatima.title.en, second: fatima.title[lang2] },
-    ...order.map(key => ({ id: `mystery-${key}`, en: MYSTERIES[key].name.en, second: MYSTERIES[key].name[lang2] })),
+    { id: "mystery-selector", en: UI.mysteriesNav.en, second: UI.mysteriesNav[lang2] },
     { id: `prayer-${threeHailMarys.id}`, en: threeHailMarys.title.en, second: threeHailMarys.title[lang2] },
     { id: `prayer-${closing.id}`, en: UI.closing.en, second: UI.closing[lang2] }
   ];
@@ -194,11 +309,79 @@ function renderRosary() {
 
     ${renderPrayerCard(fatima)}
 
-    ${order.map(key => mysterySetHtml(key, key === todayKey)).join("")}
+    ${mysterySelectorHtml(state.selectedMystery, todayKey)}
+    ${mysterySetHtml(state.selectedMystery, state.selectedMystery === todayKey)}
 
     ${renderPrayerCard(threeHailMarys)}
 
     ${renderPrayerCard(closing)}
+  `;
+}
+
+/* ---------- Tab: Settings ---------- */
+
+function toggleSwitchHtml(id, isOn) {
+  return `
+    <button class="toggle-switch ${isOn ? "on" : ""}" id="${id}" role="switch" aria-checked="${isOn}">
+      <span class="toggle-knob"></span>
+    </button>
+  `;
+}
+
+function renderSettings() {
+  const lang2 = state.secondLang;
+  return `
+    <div class="settings-section">
+      <div class="settings-row">
+        <div class="settings-row-text">
+          <span class="settings-row-title">${UI.settingsLanguage.en} <span class="settings-row-title-nl">/ ${UI.settingsLanguage[lang2]}</span></span>
+          <span class="settings-row-desc">${UI.settingsLanguageDesc.en} ${UI.settingsLanguageDesc[lang2]}</span>
+        </div>
+        <div class="lang-switch settings-lang-switch" id="settings-lang-switch">
+          <button class="lang-switch-btn ${state.secondLang === "nl" ? "active" : ""}" data-lang="nl">Nederlands</button>
+          <button class="lang-switch-btn ${state.secondLang === "de" ? "active" : ""}" data-lang="de">Deutsch</button>
+        </div>
+      </div>
+
+      <div class="settings-row">
+        <div class="settings-row-text">
+          <span class="settings-row-title">${UI.settingsLatin.en} <span class="settings-row-title-nl">/ ${UI.settingsLatin[lang2]}</span></span>
+          <span class="settings-row-desc">${UI.settingsLatinDesc.en} ${UI.settingsLatinDesc[lang2]}</span>
+        </div>
+        ${toggleSwitchHtml("settings-toggle-latin", state.showLatin)}
+      </div>
+
+      <div class="settings-row">
+        <div class="settings-row-text">
+          <span class="settings-row-title">${UI.settingsDark.en} <span class="settings-row-title-nl">/ ${UI.settingsDark[lang2]}</span></span>
+          <span class="settings-row-desc">${UI.settingsDarkDesc.en} ${UI.settingsDarkDesc[lang2]}</span>
+        </div>
+        ${toggleSwitchHtml("settings-toggle-dark", state.darkMode)}
+      </div>
+
+      <div class="settings-row">
+        <div class="settings-row-text">
+          <span class="settings-row-title">${UI.settingsVibration.en} <span class="settings-row-title-nl">/ ${UI.settingsVibration[lang2]}</span></span>
+          <span class="settings-row-desc">${UI.settingsVibrationDesc.en} ${UI.settingsVibrationDesc[lang2]}</span>
+        </div>
+        ${toggleSwitchHtml("settings-toggle-vibration", state.vibration)}
+      </div>
+
+      <div class="settings-row">
+        <div class="settings-row-text">
+          <span class="settings-row-title">${UI.settingsFontSize.en} <span class="settings-row-title-nl">/ ${UI.settingsFontSize[lang2]}</span></span>
+          <span class="settings-row-desc">${FONT_SIZES[state.fontSizeIndex]}px</span>
+        </div>
+        <div class="font-size-control" id="settings-font-size-control">
+          <button class="font-size-btn" data-action="decrease" aria-label="Decrease text size" ${state.fontSizeIndex === 0 ? "disabled" : ""}>A−</button>
+          <button class="font-size-btn" data-action="increase" aria-label="Increase text size" ${state.fontSizeIndex === FONT_SIZES.length - 1 ? "disabled" : ""}>A+</button>
+        </div>
+      </div>
+    </div>
+
+    <button class="settings-reset" id="settings-reset">
+      ${UI.settingsReset.en} <span class="settings-reset-nl">/ ${UI.settingsReset[lang2]}</span>
+    </button>
   `;
 }
 
@@ -209,8 +392,10 @@ function render() {
   if (state.tab === "daily") html = renderDaily();
   else if (state.tab === "rosary") html = renderRosary();
   else if (state.tab === "opusdei") html = renderOpusDei();
+  else if (state.tab === "settings") html = renderSettings();
 
   contentEl.innerHTML = html;
+  syncSettingsControls();
 }
 
 function updateChrome() {
@@ -220,16 +405,79 @@ function updateChrome() {
   if (tabNlEls[0]) tabNlEls[0].textContent = UI.tabDaily[lang2];
   if (tabNlEls[1]) tabNlEls[1].textContent = UI.tabRosary[lang2];
   if (tabNlEls[2]) tabNlEls[2].textContent = UI.tabOpusDei[lang2];
+  if (tabNlEls[3]) tabNlEls[3].textContent = UI.tabSettings[lang2];
 
   [...langSwitchEl.querySelectorAll(".lang-switch-btn")].forEach(btn => {
     btn.classList.toggle("active", btn.dataset.lang === lang2);
   });
+
+  [...tabsEl.querySelectorAll(".tab")].forEach(t => t.classList.toggle("active", t.dataset.tab === state.tab));
+
+  latinToggleEl.setAttribute("aria-pressed", String(state.showLatin));
 }
+
+/* Re-applies state to any settings controls currently in the DOM
+   (both the settings tab and the header controls). */
+function syncSettingsControls() {
+  const darkToggle = document.getElementById("settings-toggle-dark");
+  if (darkToggle) {
+    darkToggle.classList.toggle("on", state.darkMode);
+    darkToggle.setAttribute("aria-checked", String(state.darkMode));
+  }
+  const vibrationToggle = document.getElementById("settings-toggle-vibration");
+  if (vibrationToggle) {
+    vibrationToggle.classList.toggle("on", state.vibration);
+    vibrationToggle.setAttribute("aria-checked", String(state.vibration));
+  }
+  const latinToggleInSettings = document.getElementById("settings-toggle-latin");
+  if (latinToggleInSettings) {
+    latinToggleInSettings.classList.toggle("on", state.showLatin);
+    latinToggleInSettings.setAttribute("aria-checked", String(state.showLatin));
+  }
+}
+
+/* ---------- Dark mode ---------- */
+
+function applyDarkMode() {
+  document.documentElement.setAttribute("data-theme", state.darkMode ? "dark" : "light");
+  const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+  if (themeColorMeta) themeColorMeta.setAttribute("content", state.darkMode ? "#16110d" : "#7a1f3d");
+  saveSetting(STORAGE_KEYS.darkMode, state.darkMode);
+}
+
+/* ---------- Font size ---------- */
+
+function applyFontSize() {
+  document.documentElement.style.fontSize = FONT_SIZES[state.fontSizeIndex] + "px";
+  if (fontSizeControlEl) {
+    const decBtn = fontSizeControlEl.querySelector('[data-action="decrease"]');
+    const incBtn = fontSizeControlEl.querySelector('[data-action="increase"]');
+    if (decBtn) decBtn.disabled = state.fontSizeIndex === 0;
+    if (incBtn) incBtn.disabled = state.fontSizeIndex === FONT_SIZES.length - 1;
+  }
+  saveSetting(STORAGE_KEYS.fontSizeIndex, state.fontSizeIndex);
+}
+
+function increaseFontSize() {
+  if (state.fontSizeIndex < FONT_SIZES.length - 1) state.fontSizeIndex++;
+  applyFontSize();
+  if (state.tab === "settings") render();
+}
+
+function decreaseFontSize() {
+  if (state.fontSizeIndex > 0) state.fontSizeIndex--;
+  applyFontSize();
+  if (state.tab === "settings") render();
+}
+
+/* ---------- Event listeners ---------- */
 
 tabsEl.addEventListener("click", (e) => {
   const btn = e.target.closest(".tab");
   if (!btn) return;
   state.tab = btn.dataset.tab;
+  saveSetting(STORAGE_KEYS.tab, state.tab);
+  vibrate();
   [...tabsEl.querySelectorAll(".tab")].forEach(t => t.classList.toggle("active", t === btn));
   render();
   window.scrollTo({ top: 0, behavior: "smooth" });
@@ -237,6 +485,8 @@ tabsEl.addEventListener("click", (e) => {
 
 latinToggleEl.addEventListener("click", () => {
   state.showLatin = !state.showLatin;
+  saveSetting(STORAGE_KEYS.showLatin, state.showLatin);
+  vibrate();
   latinToggleEl.setAttribute("aria-pressed", String(state.showLatin));
   render();
 });
@@ -245,12 +495,14 @@ langSwitchEl.addEventListener("click", (e) => {
   const btn = e.target.closest(".lang-switch-btn");
   if (!btn) return;
   state.secondLang = btn.dataset.lang;
+  saveSetting(STORAGE_KEYS.secondLang, state.secondLang);
+  vibrate();
   updateChrome();
   render();
 });
 
-/* Jump-to-prayer selectors are re-created on every render, so listen
-   via delegation on the content container. */
+/* Jump-to-prayer selectors, mystery buttons, and settings controls are
+   re-created on every render, so listen via delegation on the content container. */
 contentEl.addEventListener("change", (e) => {
   const select = e.target.closest(".jump-nav");
   if (!select || !select.value) return;
@@ -261,6 +513,108 @@ contentEl.addEventListener("change", (e) => {
   select.value = "";
 });
 
+contentEl.addEventListener("click", (e) => {
+  const mysteryBtn = e.target.closest(".mystery-select-btn");
+  if (mysteryBtn) {
+    state.selectedMystery = mysteryBtn.dataset.mystery;
+    vibrate();
+    render();
+    document.getElementById("mystery-selector")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    return;
+  }
+
+  const settingsLangBtn = e.target.closest("#settings-lang-switch .lang-switch-btn");
+  if (settingsLangBtn) {
+    state.secondLang = settingsLangBtn.dataset.lang;
+    saveSetting(STORAGE_KEYS.secondLang, state.secondLang);
+    vibrate();
+    updateChrome();
+    render();
+    return;
+  }
+
+  if (e.target.closest("#settings-toggle-latin")) {
+    state.showLatin = !state.showLatin;
+    saveSetting(STORAGE_KEYS.showLatin, state.showLatin);
+    vibrate();
+    updateChrome();
+    render();
+    return;
+  }
+
+  if (e.target.closest("#settings-toggle-dark")) {
+    state.darkMode = !state.darkMode;
+    applyDarkMode();
+    vibrate();
+    render();
+    return;
+  }
+
+  if (e.target.closest("#settings-toggle-vibration")) {
+    state.vibration = !state.vibration;
+    saveSetting(STORAGE_KEYS.vibration, state.vibration);
+    vibrate();
+    render();
+    return;
+  }
+
+  const settingsFontBtn = e.target.closest("#settings-font-size-control .font-size-btn");
+  if (settingsFontBtn) {
+    if (settingsFontBtn.dataset.action === "increase") increaseFontSize();
+    else decreaseFontSize();
+    return;
+  }
+
+  if (e.target.closest("#settings-reset")) {
+    state.secondLang = "nl";
+    state.showLatin = false;
+    state.darkMode = false;
+    state.vibration = true;
+    state.fontSizeIndex = DEFAULT_FONT_SIZE_INDEX;
+    saveSetting(STORAGE_KEYS.secondLang, state.secondLang);
+    saveSetting(STORAGE_KEYS.showLatin, state.showLatin);
+    saveSetting(STORAGE_KEYS.vibration, state.vibration);
+    applyDarkMode();
+    applyFontSize();
+    vibrate(20);
+    updateChrome();
+    render();
+  }
+});
+
+if (fontSizeControlEl) {
+  fontSizeControlEl.addEventListener("click", (e) => {
+    const btn = e.target.closest(".font-size-btn");
+    if (!btn) return;
+    if (btn.dataset.action === "increase") increaseFontSize();
+    else decreaseFontSize();
+  });
+}
+
+/* ---------- Back to top ---------- */
+
+if (backToTopEl) {
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      backToTopEl.hidden = window.scrollY < 400;
+      ticking = false;
+    });
+  });
+
+  backToTopEl.addEventListener("click", () => {
+    vibrate();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/* ---------- Init ---------- */
+
+loadAllSettings();
+applyDarkMode();
+applyFontSize();
 updateChrome();
 render();
 
