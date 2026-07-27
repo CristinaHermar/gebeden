@@ -95,7 +95,7 @@ function renderPrayerCard(prayer) {
 
   if (prayer.source) {
     let sourceText;
-    if (state.showLatin) {
+    if (state.showLatin && prayer.source.la) {
       sourceText = prayer.source.la;
     } else {
       sourceText = [prayer.source.en, prayer.source[lang2]].join(" · ");
@@ -169,6 +169,7 @@ function renderRosary() {
     .map(findPrayer);
   const closing = findPrayer(CLOSING_REF);
   const fatima = findPrayer("fatima");
+  const threeHailMarys = findPrayer("three-hail-marys");
 
   const order = ["joyful", "sorrowful", "glorious", "luminous"];
 
@@ -176,6 +177,7 @@ function renderRosary() {
     { id: "section-opening", en: UI.opening.en, second: UI.opening[lang2] },
     { id: "prayer-fatima", en: fatima.title.en, second: fatima.title[lang2] },
     ...order.map(key => ({ id: `mystery-${key}`, en: MYSTERIES[key].name.en, second: MYSTERIES[key].name[lang2] })),
+    { id: `prayer-${threeHailMarys.id}`, en: threeHailMarys.title.en, second: threeHailMarys.title[lang2] },
     { id: `prayer-${closing.id}`, en: UI.closing.en, second: UI.closing[lang2] }
   ];
 
@@ -193,6 +195,8 @@ function renderRosary() {
     ${renderPrayerCard(fatima)}
 
     ${order.map(key => mysterySetHtml(key, key === todayKey)).join("")}
+
+    ${renderPrayerCard(threeHailMarys)}
 
     ${renderPrayerCard(closing)}
   `;

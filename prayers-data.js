@@ -102,7 +102,7 @@ const PRAYERS = [
   {
     id: "angelus",
     category: "daily",
-    title: { en: "The Angelus", nl: "Engel des Heren", de: "Der Engel des Herrn", la: "Angelus Domini" },
+    title: { en: "Angelus", nl: "Engel des Heren", de: "Der Engel des Herrn", la: "Angelus Domini" },
     text: {
       en: "V. The Angel of the Lord declared unto Mary,<br>R. And she conceived of the Holy Spirit.<br>Hail Mary…<br><br>V. Behold the handmaid of the Lord,<br>R. Be it done unto me according to thy word.<br>Hail Mary…<br><br>V. And the Word was made flesh,<br>R. And dwelt among us.<br>Hail Mary…<br><br>V. Pray for us, O holy Mother of God,<br>R. That we may be made worthy of the promises of Christ.",
       nl: "V. De Engel des Heren heeft aan Maria geboodschapt,<br>R. En zij heeft ontvangen van de Heilige Geest.<br>Wees gegroet…<br><br>V. Zie de dienstmaagd des Heren.<br>R. Mij geschiede naar uw woord.<br>Wees gegroet…<br><br>V. En het Woord is vlees geworden.<br>R. En het heeft onder ons gewoond.<br>Wees gegroet…<br><br>V. Bid voor ons, heilige Moeder van God,<br>R. Opdat wij de beloften van Christus waardig worden.",
@@ -114,6 +114,51 @@ const PRAYERS = [
       nl: "Laat ons bidden. Heer, wij hebben door de boodschap van de Engel de menswording van Christus, uw Zoon, leren kennen; wij bidden U: stort uw genade in onze harten, opdat wij door zijn lijden en kruis gebracht worden tot de heerlijkheid van de verrijzenis. Door Christus onze Heer. Amen.",
       de: "Lasset uns beten. Allmächtiger Gott, gieße deine Gnade in unsere Herzen ein. Durch die Botschaft des Engels haben wir die Menschwerdung Christi, deines Sohnes, erkannt. Führe uns durch sein Leiden und Kreuz zur Herrlichkeit der Auferstehung. Darum bitten wir durch Christus, unsern Herrn. Amen.",
       la: "Orémus. Grátiam tuam, quaésumus, Dómine, méntibus nostris infúnde, ut qui, Angelo nuntiánte, Christi Fílii tui incarnatiónem cognóvimus, per passiónem eius et crucem ad resurrectiónis glóriam perducámur. Per Christum Dóminum nostrum. Amen."
+    }
+  },
+  {
+    id: "three-hail-marys",
+    category: "rosary",
+    title: { en: "Three Hail Marys", nl: "Drie Weesgegroetjes", de: "Drei Ave Maria", la: "Tres Ave María" },
+    text: {
+      en: "Hail Mary, Daughter of God the Father, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.<br><br>Hail Mary, Mother of God the Son, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.<br><br>Hail Mary, Spouse of God the Holy Spirit, full of grace, the Lord is with thee. Blessed art thou among women, and blessed is the fruit of thy womb, Jesus. Holy Mary, Mother of God, pray for us sinners, now and at the hour of our death. Amen.",
+      nl: "Wees gegroet, Maria, Dochter van God de Vader, vol van genade, de Heer is met u. Gij zijt de gezegende onder de vrouwen en gezegend is Jezus, de vrucht van uw schoot. Heilige Maria, Moeder van God, bid voor ons, zondaars, nu en in het uur van onze dood. Amen.<br><br>Wees gegroet, Maria, Moeder van God de Zoon, vol van genade, de Heer is met u. Gij zijt de gezegende onder de vrouwen en gezegend is Jezus, de vrucht van uw schoot. Heilige Maria, Moeder van God, bid voor ons, zondaars, nu en in het uur van onze dood. Amen.<br><br>Wees gegroet, Maria, Bruid van de Heilige Geest, vol van genade, de Heer is met u. Gij zijt de gezegende onder de vrouwen en gezegend is Jezus, de vrucht van uw schoot. Heilige Maria, Moeder van God, bid voor ons, zondaars, nu en in het uur van onze dood. Amen.",
+      de: "Gegrüßet seist du, Maria, Tochter Gottes des Vaters, voll der Gnade, der Herr ist mit dir. Du bist gebenedeit unter den Frauen, und gebenedeit ist die Frucht deines Leibes, Jesus. Heilige Maria, Mutter Gottes, bitte für uns Sünder, jetzt und in der Stunde unseres Todes. Amen.<br><br>Gegrüßet seist du, Maria, Mutter Gottes des Sohnes, voll der Gnade, der Herr ist mit dir. Du bist gebenedeit unter den Frauen, und gebenedeit ist die Frucht deines Leibes, Jesus. Heilige Maria, Mutter Gottes, bitte für uns Sünder, jetzt und in der Stunde unseres Todes. Amen.<br><br>Gegrüßet seist du, Maria, Braut Gottes des Heiligen Geistes, voll der Gnade, der Herr ist mit dir. Du bist gebenedeit unter den Frauen, und gebenedeit ist die Frucht deines Leibes, Jesus. Heilige Maria, Mutter Gottes, bitte für uns Sünder, jetzt und in der Stunde unseres Todes. Amen.",
+      la: "Ave María, fília Dei Patris, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen.<br><br>Ave María, mater Dei Fílii, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen.<br><br>Ave María, sponsa Spíritus Sancti, grátia plena, Dóminus tecum. Benedícta tu in muliéribus, et benedíctus fructus ventris tui, Iesus. Sancta María, Mater Dei, ora pro nobis peccatóribus, nunc et in hora mortis nostræ. Amen."
+    },
+    source: {
+      en: "Traditional Marian invocation prayed after the five mysteries, before the Litany of Loreto; cited by St. Josemaría Escrivá in The Way, no. 496.",
+      nl: "Traditionele Mariale aanroeping, gebeden na de vijf geheimen, vóór de Litanie van Loreto.",
+      de: "Traditionelle marianische Anrufung nach den fünf Geheimnissen, vor der Lauretanischen Litanei; zitiert vom heiligen Josefmaria Escrivá in Der Weg, Nr. 496 (opusdei.org).",
+      la: "Invocátio Marialis traditionalis (translatio propria)."
+    }
+  },
+  {
+    id: "grace-before-meals",
+    category: "daily",
+    title: { en: "Grace Before Meals", nl: "Tafelgebed (vóór het eten)", de: "Tischgebet (vor dem Essen)", la: "Benedíctio Mensæ (ante cibum)" },
+    text: {
+      en: "Bless us, O Lord, and these Thy gifts, which we are about to receive from Thy bounty. Through Christ our Lord. Amen.",
+      nl: "Heer, zegen ons en deze gaven, die wij van uw mildheid zullen ontvangen. Door Christus onze Heer. Amen.",
+      de: "Herr, segne uns und diese Gaben, die wir von deiner Güte nun empfangen, durch Christus, unseren Herrn. Amen.",
+      la: "Bénedic, Dómine, nos et hæc tua dona, quæ de tua largitáte sumus sumptúri. Per Christum Dóminum nostrum. Amen."
+    }
+  },
+  {
+    id: "grace-after-meals",
+    category: "daily",
+    title: { en: "Grace After Meals", nl: "Dankgebed (na het eten)", de: "Tischgebet (nach dem Essen)", la: "Grátiárum Áctio (post cibum)" },
+    text: {
+      en: "We give Thee thanks, Almighty God, for all Thy benefits, Who livest and reignest world without end. Amen.",
+      nl: "Almachtige God, wij danken U voor al uw weldaden, Gij die leeft en heerst in de eeuwen der eeuwen. Amen.",
+      de: "Wir danken dir, allmächtiger Gott, für alle deine Wohltaten, der du lebst und herrschest in Ewigkeit. Amen.",
+      la: "Ágimus tibi grátias, omnípotens Deus, pro univérsis benefíciis tuis, qui vivis et regnas in sæcula sæculórum. Amen."
+    },
+    note: {
+      en: "V. May the souls of the faithful departed, through the mercy of God, rest in peace. R. Amen.",
+      nl: "V. Dat de zielen van de overleden gelovigen door de barmhartigheid van God rusten in vrede. R. Amen.",
+      de: "V. Die Seelen der verstorbenen Gläubigen mögen durch die Barmherzigkeit Gottes ruhen in Frieden. R. Amen.",
+      la: "V. Fidélium ánimæ per misericórdiam Dei requiéscant in pace. R. Amen."
     }
   },
   {
