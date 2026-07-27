@@ -74,7 +74,6 @@ const UI = {
   selectPlaceholder: { en: "select", nl: "kies", de: "wähle" },
   opening: { en: "Opening Prayers", nl: "Beginnende gebeden", de: "Eröffnungsgebete" },
   closing: { en: "Closing Prayer", nl: "Slotgebed", de: "Schlussgebet" },
-  todaysMysteries: { en: "Today's mysteries", nl: "De geheimen van vandaag", de: "Die Geheimnisse von heute" },
   chooseMystery: { en: "Choose which mysteries to pray", nl: "Kies welke geheimen u wilt bidden", de: "Wähle, welche Geheimnisse du beten möchtest" },
   mysteriesNav: { en: "The Mysteries", nl: "De Geheimen", de: "Die Geheimnisse" },
   opusDeiIntro: {
@@ -279,29 +278,25 @@ function todayMysteryKey() {
 function renderRosary() {
   const lang2 = state.secondLang;
   const todayKey = todayMysteryKey();
-  const todaySet = MYSTERIES[todayKey];
   const openingPrayers = ["signum-crucis", "credo"].map(findPrayer);
   const closing = findPrayer(CLOSING_REF);
   const fatima = findPrayer("fatima");
   const threeHailMarys = findPrayer("three-hail-marys");
+  const litany = findPrayer("litany-loreto");
 
   if (!state.selectedMystery) state.selectedMystery = todayKey;
 
   const navItems = [
     { id: "mystery-selector", en: UI.mysteriesNav.en, second: UI.mysteriesNav[lang2] },
-    { id: "section-opening", en: UI.opening.en, second: UI.opening[lang2] },
+    ...openingPrayers.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, second: p.title[lang2] })),
     { id: "prayer-fatima", en: fatima.title.en, second: fatima.title[lang2] },
     { id: `prayer-${threeHailMarys.id}`, en: threeHailMarys.title.en, second: threeHailMarys.title[lang2] },
+    { id: `prayer-${litany.id}`, en: litany.title.en, second: litany.title[lang2] },
     { id: `prayer-${closing.id}`, en: UI.closing.en, second: UI.closing[lang2] }
   ];
 
   return `
     ${renderJumpNav(navItems, "jump-rosary")}
-
-    <div class="today-banner">
-      <strong>${todaySet.name.en} · ${todaySet.name[lang2]}</strong>
-      <span>${UI.todaysMysteries.en} — ${UI.todaysMysteries[lang2]}</span>
-    </div>
 
     ${mysterySelectorHtml(state.selectedMystery, todayKey)}
     ${mysterySetHtml(state.selectedMystery, state.selectedMystery === todayKey)}
@@ -312,6 +307,8 @@ function renderRosary() {
     ${renderPrayerCard(fatima)}
 
     ${renderPrayerCard(threeHailMarys)}
+
+    ${renderPrayerCard(litany)}
 
     ${renderPrayerCard(closing)}
   `;

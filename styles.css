@@ -403,22 +403,6 @@ main {
 
 /* ---------- Rosary specific ---------- */
 
-.today-banner {
-  background: linear-gradient(135deg, var(--gold-light), var(--gold));
-  color: var(--wine-dark);
-  border-radius: 14px;
-  padding: 14px 16px;
-  margin-bottom: 18px;
-  font-size: 0.88rem;
-  box-shadow: 0 8px 20px var(--shadow);
-}
-
-.today-banner strong {
-  display: block;
-  font-size: 1.05rem;
-  margin-bottom: 2px;
-}
-
 .mystery-select-wrap {
   margin: 22px 0 14px;
 }
