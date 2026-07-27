@@ -64,12 +64,11 @@ const PRAYERS = [
   {
     id: "fatima",
     category: "daily",
-    title: { en: "O My Jesus (Fatima Prayer)", nl: "O mijn Jezus (Fátima-gebed)", de: "O mein Jesus (Fátima-Gebet)", la: "Oratio Fatimae" },
+    title: { en: "O My Jesus (Fatima Prayer)", nl: "O mijn Jezus (Fátima-gebed)", de: "O mein Jesus (Fátima-Gebet)" },
     text: {
       en: "O my Jesus, forgive us our sins, save us from the fires of hell, lead all souls to Heaven, especially those most in need of thy mercy. Amen.",
       nl: "O mijn Jezus, vergeef ons onze zonden, behoed ons voor het vuur van de hel, breng alle zielen naar de Hemel, vooral diegenen die uw barmhartigheid het meeste nodig hebben. Amen.",
-      de: "O mein Jesus, verzeih uns unsere Sünden, bewahre uns vor dem Feuer der Hölle, führe alle Seelen in den Himmel, besonders jene, die deiner Barmherzigkeit am meisten bedürfen. Amen.",
-      la: "Dómine Iesu, dimítte nobis débita nostra, líbera nos ab igne inférni, perduc in cælum omnes ánimas, præsértim illas quæ misericórdiæ tuæ máxime índigent. Amen."
+      de: "O mein Jesus, verzeih uns unsere Sünden, bewahre uns vor dem Feuer der Hölle, führe alle Seelen in den Himmel, besonders jene, die deiner Barmherzigkeit am meisten bedürfen. Amen."
     }
   },
   {

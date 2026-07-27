@@ -13,13 +13,6 @@ const UI = {
   jumpTo: { en: "Jump to", nl: "Ga naar", de: "Gehe zu" },
   selectPlaceholder: { en: "select", nl: "kies", de: "wähle" },
   opening: { en: "Opening Prayers", nl: "Beginnende gebeden", de: "Eröffnungsgebete" },
-  decade: { en: "Each Decade", nl: "Elk tientje", de: "Jedes Gesätz" },
-  decadeIntro: {
-    en: "See the prayer texts above (Our Father, Hail Mary, Glory Be) and below (Fatima Prayer).",
-    nl: "Zie de gebedsteksten hierboven (Onze Vader, Weesgegroet, Eer aan de Vader) en hieronder (Fátima-gebed).",
-    de: "Siehe die Gebetstexte oben (Vaterunser, Ave Maria, Ehre sei dem Vater) und unten (Fátima-Gebet)."
-  },
-  mysteries: { en: "The Mysteries", nl: "De Geheimen", de: "Die Geheimnisse" },
   closing: { en: "Closing Prayer", nl: "Slotgebed", de: "Schlussgebet" },
   todaysMysteries: { en: "Today's mysteries", nl: "De geheimen van vandaag", de: "Die Geheimnisse von heute" },
   opusDeiIntro: {
@@ -78,7 +71,7 @@ function renderPrayerCard(prayer) {
       </div>
   `;
 
-  if (state.showLatin) {
+  if (state.showLatin && t.la) {
     html += `
       <div class="prayer-latin">
         <span class="latin-label">Latin · ${prayer.title.la}</span>
@@ -142,31 +135,13 @@ function renderOpusDei() {
 
 /* ---------- Tab: Rosary ---------- */
 
-function decadeStepsHtml() {
-  const lang2 = state.secondLang;
-  return `
-    <ul class="decade-steps">
-      ${DECADE_PATTERN.map(step => `
-        <li>
-          <span class="en">${step.label.en}</span>
-          <span class="nl">${step.label[lang2]}</span>
-        </li>
-      `).join("")}
-    </ul>
-  `;
-}
-
 function mysterySetHtml(key, isToday) {
   const set = MYSTERIES[key];
   const lang2 = state.secondLang;
   return `
     <div id="mystery-${key}">
-      <p class="mystery-eyebrow"><span class="en">3. ${UI.mysteries.en}</span> <span class="nl">${UI.mysteries[lang2]}</span></p>
+      <h2 class="section-title"><span class="en">${set.name.en}</span> <span class="nl">${set.name[lang2]}</span></h2>
       <div class="mystery-set ${isToday ? "is-today" : ""}">
-        <div class="mystery-set-title">
-          <span class="en">${set.name.en}</span>
-          <span class="nl">${set.name[lang2]}</span>
-        </div>
         <ol class="mystery-list">
           ${set.items.map(item => `
             <li>
@@ -199,10 +174,9 @@ function renderRosary() {
 
   const navItems = [
     { id: "section-opening", en: UI.opening.en, second: UI.opening[lang2] },
-    { id: "section-decade", en: UI.decade.en, second: UI.decade[lang2] },
     { id: "prayer-fatima", en: fatima.title.en, second: fatima.title[lang2] },
     ...order.map(key => ({ id: `mystery-${key}`, en: MYSTERIES[key].name.en, second: MYSTERIES[key].name[lang2] })),
-    { id: "section-closing", en: UI.closing.en, second: UI.closing[lang2] }
+    { id: `prayer-${closing.id}`, en: UI.closing.en, second: UI.closing[lang2] }
   ];
 
   return `
@@ -216,16 +190,10 @@ function renderRosary() {
     <h2 class="section-title" id="section-opening"><span class="en">1. ${UI.opening.en}</span> <span class="nl">${UI.opening[lang2]}</span></h2>
     ${[...new Map(openingPrayers.map(p => [p.id, p])).values()].map(renderPrayerCard).join("")}
 
-    <h2 class="section-title" id="section-decade"><span class="en">2. ${UI.decade.en}</span> <span class="nl">${UI.decade[lang2]}</span></h2>
-    <div class="prayer-card" style="padding:6px 4px;">
-      ${decadeStepsHtml()}
-    </div>
-    <p class="intro-text">${UI.decadeIntro.en}<br/>${UI.decadeIntro[lang2]}</p>
     ${renderPrayerCard(fatima)}
 
     ${order.map(key => mysterySetHtml(key, key === todayKey)).join("")}
 
-    <h2 class="section-title" id="section-closing"><span class="en">4. ${UI.closing.en}</span> <span class="nl">${UI.closing[lang2]}</span></h2>
     ${renderPrayerCard(closing)}
   `;
 }
