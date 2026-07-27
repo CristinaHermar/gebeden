@@ -138,10 +138,10 @@ const PRAYERS = [
     category: "daily",
     title: { en: "Grace Before Meals", nl: "Tafelgebed (vóór het eten)", de: "Tischgebet (vor dem Essen)", la: "Benedíctio Mensæ (ante cibum)" },
     text: {
-      en: "Bless us, O Lord, and these Thy gifts, which we are about to receive from Thy bounty. Through Christ our Lord. Amen.",
-      nl: "Heer, zegen ons en deze gaven, die wij van uw mildheid zullen ontvangen. Door Christus onze Heer. Amen.",
-      de: "Herr, segne uns und diese Gaben, die wir von deiner Güte nun empfangen, durch Christus, unseren Herrn. Amen.",
-      la: "Bénedic, Dómine, nos et hæc tua dona, quæ de tua largitáte sumus sumptúri. Per Christum Dóminum nostrum. Amen."
+      en: "V. Bless us, O Lord, and these Thy gifts, which we are about to receive from Thy bounty. Through Christ our Lord.<br>R. Amen.<br><br>V. May the King of everlasting glory make us partakers of the heavenly table.<br>R. Amen.",
+      nl: "V. Heer, zegen ons en deze gaven, die wij van uw mildheid zullen ontvangen. Door Christus onze Heer.<br>R. Amen.<br><br>V. De Koning van de eeuwige heerlijkheid make ons tot deelgenoten van het hemels gastmaal.<br>R. Amen.",
+      de: "V. Herr, segne uns und diese Gaben, die wir von deiner Güte nun empfangen, durch Christus, unseren Herrn.<br>R. Amen.<br><br>V. Zum Gastmahl des ewigen Lebens führe uns der König der Herrlichkeit.<br>R. Amen.",
+      la: "V. Bénedic, Dómine, nos et hæc tua dona, quæ de tua largitáte sumus sumptúri. Per Christum Dóminum nostrum.<br>R. Amen.<br><br>V. Mensæ cæléstis partícipes fáciat nos, Rex ætérnæ glóriæ.<br>R. Amen."
     }
   },
   {
@@ -149,16 +149,10 @@ const PRAYERS = [
     category: "daily",
     title: { en: "Grace After Meals", nl: "Dankgebed (na het eten)", de: "Tischgebet (nach dem Essen)", la: "Grátiárum Áctio (post cibum)" },
     text: {
-      en: "We give Thee thanks, Almighty God, for all Thy benefits, Who livest and reignest world without end. Amen.",
-      nl: "Almachtige God, wij danken U voor al uw weldaden, Gij die leeft en heerst in de eeuwen der eeuwen. Amen.",
-      de: "Wir danken dir, allmächtiger Gott, für alle deine Wohltaten, der du lebst und herrschest in Ewigkeit. Amen.",
-      la: "Ágimus tibi grátias, omnípotens Deus, pro univérsis benefíciis tuis, qui vivis et regnas in sæcula sæculórum. Amen."
-    },
-    note: {
-      en: "V. May the souls of the faithful departed, through the mercy of God, rest in peace. R. Amen.",
-      nl: "V. Dat de zielen van de overleden gelovigen door de barmhartigheid van God rusten in vrede. R. Amen.",
-      de: "V. Die Seelen der verstorbenen Gläubigen mögen durch die Barmherzigkeit Gottes ruhen in Frieden. R. Amen.",
-      la: "V. Fidélium ánimæ per misericórdiam Dei requiéscant in pace. R. Amen."
+      en: "V. We give Thee thanks, Almighty God, for all Thy benefits, Who livest and reignest world without end.<br>R. Amen.<br><br>V. The Lord grant us his peace.<br>R. And life everlasting. Amen.",
+      nl: "V. Almachtige God, wij danken U voor al uw weldaden, Gij die leeft en heerst in de eeuwen der eeuwen.<br>R. Amen.<br><br>V. De Heer geve ons zijn vrede.<br>R. En het eeuwig leven. Amen.",
+      de: "V. Wir danken dir, allmächtiger Gott, für alle deine Wohltaten, der du lebst und herrschest in Ewigkeit.<br>R. Amen.<br><br>V. Der Herr schenke uns seinen Frieden.<br>R. Und das ewige Leben. Amen.",
+      la: "V. Ágimus tibi grátias, omnípotens Deus, pro univérsis benefíciis tuis, qui vivis et regnas in sæcula sæculórum.<br>R. Amen.<br><br>V. Deus det nobis suam pacem.<br>R. Et vitam ætérnam. Amen."
     }
   },
   {
