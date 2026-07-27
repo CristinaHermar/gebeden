@@ -1,4 +1,4 @@
-# Preces
+# Gebeden
 
 Un pequeño devocionario bilingüe (inglés / neerlandés, con opción de ver también el alemán y el latín) para usar como PWA en el móvil: Rosario, oraciones diarias, y las oraciones del Opus Dei para iniciar y terminar el rato de oración. Cada sección tiene un selector "Jump to / Ga naar" arriba para saltar directo a una oración sin tener que recorrer toda la página.
 
@@ -10,13 +10,13 @@ Un pequeño devocionario bilingüe (inglés / neerlandés, con opción de ver ta
 
 ## Cómo publicarlo en GitHub Pages
 
-1. Crea un repositorio nuevo en GitHub (por ejemplo `preces`).
+1. Crea un repositorio nuevo en GitHub (por ejemplo `gebeden`).
 2. Sube estos archivos a la raíz del repositorio:
    `index.html`, `styles.css`, `app.js`, `prayers-data.js`, `manifest.json`, `sw.js`, `icon-192.png`, `icon-512.png`.
 3. En el repositorio, ve a **Settings → Pages**.
 4. En "Source", selecciona la rama `main` y la carpeta `/ (root)`. Guarda.
 5. Espera un par de minutos; GitHub te dará una URL del tipo
-   `https://TU-USUARIO.github.io/preces/`.
+   `https://TU-USUARIO.github.io/gebeden/`.
 
 ## Cómo instalarlo como app en el celular
 

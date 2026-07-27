@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Preces</title>
+  <title>Gebeden</title>
 
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json" />
@@ -13,14 +13,13 @@
   <meta name="theme-color" content="#7a1f3d" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Preces" />
+  <meta name="apple-mobile-web-app-title" content="Gebeden" />
 </head>
 <body>
 
   <header class="hero">
-    <p class="kicker">EN · NL</p>
-    <h1>Preces</h1>
-    <p class="subtitle">A pocket book of daily prayer<br />Een klein gebedenboek</p>
+    <h1>Gebeden</h1>
+    <p class="subtitle">A pocket book of daily prayer</p>
   </header>
 
   <nav class="tabs" id="tabs">
@@ -36,12 +35,10 @@
   </nav>
 
   <div class="lang-bar">
-    <span class="lang-bar-label">
-      <span class="only-en">Show</span><span class="only-nl">Toon</span>
-    </span>
-    <button id="toggle-german" class="latin-toggle" aria-pressed="false">
-      + German <span class="lang-sep">/</span> Duits
-    </button>
+    <div class="lang-switch" id="lang-switch" role="group" aria-label="Second language">
+      <button class="lang-switch-btn active" data-lang="nl">Nederlands</button>
+      <button class="lang-switch-btn" data-lang="de">Deutsch</button>
+    </div>
     <button id="toggle-latin" class="latin-toggle" aria-pressed="false">
       + Latin <span class="lang-sep">/</span> Latijn
     </button>

@@ -44,15 +44,6 @@ body {
   position: relative;
 }
 
-.hero .kicker {
-  margin: 0 0 4px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  font-family: Georgia, serif;
-  color: var(--gold-light);
-}
-
 .hero h1 {
   margin: 0;
   font-size: 3rem;
@@ -146,6 +137,33 @@ body {
   background: var(--gold);
   color: var(--wine-dark);
   border-color: var(--gold);
+  font-weight: 600;
+}
+
+.lang-switch {
+  display: inline-flex;
+  background: var(--parchment-2);
+  border: 1px solid var(--gold);
+  border-radius: 999px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.lang-switch-btn {
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--wine-dark);
+  background: transparent;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+  letter-spacing: 0.2px;
+}
+
+.lang-switch-btn.active {
+  background: var(--gold);
+  color: var(--wine-dark);
   font-weight: 600;
 }
 
@@ -314,33 +332,6 @@ main {
   margin-bottom: 8px;
 }
 
-.prayer-german {
-  margin: 0 16px 16px;
-  padding: 12px 14px;
-  background: linear-gradient(180deg, #f4e8ec, #ecd8df);
-  border: 1px solid var(--wine-light);
-  border-radius: 10px;
-  font-style: italic;
-  font-size: 0.88rem;
-  line-height: 1.65;
-  color: var(--wine-dark);
-}
-
-.prayer-german .german-label {
-  display: block;
-  font-style: normal;
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--parchment-2);
-  background: var(--wine-light);
-  padding: 2px 8px;
-  border-radius: 999px;
-  width: fit-content;
-  margin-bottom: 8px;
-}
-
 .prayer-source {
   margin: 0 16px 14px;
   font-size: 0.72rem;
@@ -377,22 +368,13 @@ main {
   border-bottom: 1px dashed var(--line);
   font-size: 0.85rem;
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 2px 10px;
+  gap: 10px;
 }
 
 .decade-steps li:last-child { border-bottom: none; }
 .decade-steps .en { color: var(--ink); }
 .decade-steps .nl { color: var(--wine-light); font-style: italic; text-align: right; }
-.decade-steps .de {
-  flex-basis: 100%;
-  text-align: right;
-  color: var(--wine-dark);
-  font-style: italic;
-  opacity: 0.8;
-  font-size: 0.92em;
-}
 
 .mystery-set {
   background: var(--parchment-2);
@@ -402,6 +384,18 @@ main {
   margin-bottom: 14px;
   box-shadow: 0 8px 22px var(--shadow);
 }
+
+.mystery-eyebrow {
+  margin: 22px 4px 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+  color: var(--wine);
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+}
+
+.mystery-eyebrow .en { font-weight: 600; }
+.mystery-eyebrow .nl { font-style: italic; opacity: 0.75; font-size: 0.9em; }
 
 .mystery-set.is-today {
   border-color: var(--gold);
@@ -425,14 +419,6 @@ main {
   font-style: italic;
   color: var(--wine-light);
   font-size: 0.85rem;
-}
-
-.mystery-set-title-de {
-  margin: -4px 0 8px;
-  font-style: italic;
-  color: var(--wine-dark);
-  opacity: 0.75;
-  font-size: 0.82rem;
 }
 
 .mystery-list {
@@ -462,14 +448,6 @@ main {
 
 .mystery-list .en { color: var(--ink); }
 .mystery-list .nl { font-style: italic; color: #4a3c2c; }
-.mystery-list .de {
-  grid-column: 2 / span 2;
-  font-style: italic;
-  color: var(--wine-light);
-  font-size: 0.8rem;
-  opacity: 0.85;
-  padding-top: 2px;
-}
 .mystery-list .la {
   grid-column: 2 / span 2;
   font-style: italic;
