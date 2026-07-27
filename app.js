@@ -280,8 +280,7 @@ function renderRosary() {
   const lang2 = state.secondLang;
   const todayKey = todayMysteryKey();
   const todaySet = MYSTERIES[todayKey];
-  const openingPrayers = ["signum-crucis", "credo", "pater-noster", "ave-maria", "gloria-patri"]
-    .map(findPrayer);
+  const openingPrayers = ["signum-crucis", "credo"].map(findPrayer);
   const closing = findPrayer(CLOSING_REF);
   const fatima = findPrayer("fatima");
   const threeHailMarys = findPrayer("three-hail-marys");
@@ -289,9 +288,9 @@ function renderRosary() {
   if (!state.selectedMystery) state.selectedMystery = todayKey;
 
   const navItems = [
+    { id: "mystery-selector", en: UI.mysteriesNav.en, second: UI.mysteriesNav[lang2] },
     { id: "section-opening", en: UI.opening.en, second: UI.opening[lang2] },
     { id: "prayer-fatima", en: fatima.title.en, second: fatima.title[lang2] },
-    { id: "mystery-selector", en: UI.mysteriesNav.en, second: UI.mysteriesNav[lang2] },
     { id: `prayer-${threeHailMarys.id}`, en: threeHailMarys.title.en, second: threeHailMarys.title[lang2] },
     { id: `prayer-${closing.id}`, en: UI.closing.en, second: UI.closing[lang2] }
   ];
@@ -304,13 +303,13 @@ function renderRosary() {
       <span>${UI.todaysMysteries.en} — ${UI.todaysMysteries[lang2]}</span>
     </div>
 
-    <h2 class="section-title" id="section-opening"><span class="en">1. ${UI.opening.en}</span> <span class="nl">${UI.opening[lang2]}</span></h2>
-    ${[...new Map(openingPrayers.map(p => [p.id, p])).values()].map(renderPrayerCard).join("")}
-
-    ${renderPrayerCard(fatima)}
-
     ${mysterySelectorHtml(state.selectedMystery, todayKey)}
     ${mysterySetHtml(state.selectedMystery, state.selectedMystery === todayKey)}
+
+    <h2 class="section-title" id="section-opening"><span class="en">1. ${UI.opening.en}</span> <span class="nl">${UI.opening[lang2]}</span></h2>
+    ${openingPrayers.map(renderPrayerCard).join("")}
+
+    ${renderPrayerCard(fatima)}
 
     ${renderPrayerCard(threeHailMarys)}
 
