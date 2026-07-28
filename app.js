@@ -21,7 +21,9 @@ const state = {
   selectedMystery: null, // set once MYSTERIES is available, see renderRosary
   fontSizeIndex: DEFAULT_FONT_SIZE_INDEX,
   darkMode: false,
-  vibration: true
+  vibration: true,
+  expandedPrayers: new Set(), // prayer ids currently expanded when shown as collapsible (Rosary tab)
+  dailySearchQuery: ""
 };
 
 /* ---------- Persistence ---------- */
@@ -72,15 +74,12 @@ function vibrate(ms = 12) {
 const UI = {
   jumpTo: { en: "Jump to", nl: "Ga naar", de: "Gehe zu" },
   selectPlaceholder: { en: "select", nl: "kies", de: "wähle" },
-  opening: { en: "Opening Prayers", nl: "Beginnende gebeden", de: "Eröffnungsgebete" },
+  opening: { en: "Prayers to Keep in Mind", nl: "Gebeden om te onthouden", de: "Wichtige Gebete" },
   closing: { en: "Closing Prayer", nl: "Slotgebed", de: "Schlussgebet" },
   chooseMystery: { en: "Choose which mysteries to pray", nl: "Kies welke geheimen u wilt bidden", de: "Wähle, welche Geheimnisse du beten möchtest" },
   mysteriesNav: { en: "The Mysteries", nl: "De Geheimen", de: "Die Geheimnisse" },
-  opusDeiIntro: {
-    en: "Two short prayers to frame a time of personal prayer, as taught by St. Josemaría Escrivá.",
-    nl: "Twee korte gebeden om een moment van persoonlijk gebed te omkaderen, zoals onderwezen door de heilige Jozefmaria Escrivá.",
-    de: "Zwei kurze Gebete, um eine Zeit des persönlichen Gebets zu umrahmen, wie vom heiligen Josefmaria Escrivá gelehrt."
-  },
+  searchPlaceholder: { en: "Search prayers…", nl: "Zoek gebeden…", de: "Gebete suchen…" },
+  searchNoResults: { en: "No prayers match your search.", nl: "Geen gebeden gevonden.", de: "Keine Gebete gefunden." },
   tabDaily: { nl: "Dagelijks", de: "Täglich" },
   tabRosary: { nl: "Rozenkrans", de: "Rosenkranz" },
   tabOpusDei: { nl: "Opus Dei", de: "Opus Dei" },
@@ -148,65 +147,105 @@ function renderJumpNav(items, navId) {
 
 /* ---------- Card renderers ---------- */
 
-function renderPrayerCard(prayer) {
+function renderPrayerCard(prayer, opts = {}) {
+  const collapsible = !!opts.collapsible;
+  const isExpanded = !collapsible || state.expandedPrayers.has(prayer.id);
   const t = prayer.text;
   const lang2 = state.secondLang;
   let html = `
-    <article class="prayer-card" id="prayer-${prayer.id}">
-      <div class="prayer-title">
+    <article class="prayer-card ${collapsible ? "collapsible" : ""} ${isExpanded ? "expanded" : ""}" id="prayer-${prayer.id}">
+      <div class="prayer-title${collapsible ? " prayer-title-toggle" : ""}"${collapsible ? ` data-toggle-prayer="${prayer.id}" role="button" tabindex="0"` : ""}>
         <span class="col-title en">${prayer.title.en}</span>
         <span class="col-title nl">${prayer.title[lang2]}</span>
+        ${collapsible ? `<span class="prayer-toggle-caret">${isExpanded ? "▲" : "▼"}</span>` : ""}
       </div>
+  `;
+
+  if (isExpanded) {
+    html += `
       <div class="prayer-columns">
         <div class="col col-en">${t.en}</div>
         <div class="col col-nl">${t[lang2]}</div>
       </div>
-  `;
-
-  if (state.showLatin && t.la) {
-    html += `
-      <div class="prayer-latin">
-        <span class="latin-label">Latin · ${prayer.title.la}</span>
-        ${t.la}
-      </div>
     `;
-  }
 
-  if (prayer.note) {
-    html += `
-      <div class="prayer-note">
-        <span class="col-title">V. / R.</span>
-        <div class="prayer-columns" style="grid-template-columns:1fr 1fr; padding:0;">
-          <div class="col col-en" style="border-right:1px solid var(--line); padding:0 10px 0 0;">${prayer.note.en}</div>
-          <div class="col col-nl" style="padding:0 0 0 10px;">${prayer.note[lang2]}</div>
+    if (state.showLatin && t.la) {
+      html += `
+        <div class="prayer-latin">
+          <span class="latin-label">Latin · ${prayer.title.la}</span>
+          ${t.la}
         </div>
-        ${state.showLatin ? `<div class="prayer-latin" style="margin:10px 0 0;">${prayer.note.la}</div>` : ""}
-      </div>
-    `;
-  }
-
-  if (prayer.source) {
-    let sourceText;
-    if (state.showLatin && prayer.source.la) {
-      sourceText = prayer.source.la;
-    } else {
-      sourceText = [prayer.source.en, prayer.source[lang2]].join(" · ");
+      `;
     }
-    html += `<p class="prayer-source">${sourceText}</p>`;
+
+    if (prayer.note) {
+      html += `
+        <div class="prayer-note">
+          <span class="col-title">V. / R.</span>
+          <div class="prayer-columns" style="grid-template-columns:1fr 1fr; padding:0;">
+            <div class="col col-en" style="border-right:1px solid var(--line); padding:0 10px 0 0;">${prayer.note.en}</div>
+            <div class="col col-nl" style="padding:0 0 0 10px;">${prayer.note[lang2]}</div>
+          </div>
+          ${state.showLatin ? `<div class="prayer-latin" style="margin:10px 0 0;">${prayer.note.la}</div>` : ""}
+        </div>
+      `;
+    }
+
+    if (prayer.source) {
+      let sourceText;
+      if (state.showLatin && prayer.source.la) {
+        sourceText = prayer.source.la;
+      } else {
+        sourceText = [prayer.source.en, prayer.source[lang2]].join(" · ");
+      }
+      html += `<p class="prayer-source">${sourceText}</p>`;
+    }
   }
 
   html += `</article>`;
   return html;
 }
 
+/* ---------- Search helpers ---------- */
+
+function stripHtml(html) {
+  return html.replace(/<[^>]*>/g, " ");
+}
+
+function escapeAttr(str) {
+  return String(str).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function prayerMatchesQuery(prayer, query, lang2) {
+  const haystack = [
+    prayer.title.en, prayer.title[lang2], prayer.title.la,
+    stripHtml(prayer.text.en), stripHtml(prayer.text[lang2])
+  ].filter(Boolean).join(" ").toLowerCase();
+  return haystack.includes(query);
+}
+
 /* ---------- Tab: Daily ---------- */
 
 function renderDaily() {
-  const items = PRAYERS.filter(p => p.category === "daily");
-  const navItems = items.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, second: p.title[state.secondLang] }));
+  const lang2 = state.secondLang;
+  const allItems = PRAYERS.filter(p => p.category === "daily");
+  const query = state.dailySearchQuery.trim().toLowerCase();
+  const items = query ? allItems.filter(p => prayerMatchesQuery(p, query, lang2)) : allItems;
+  const navItems = allItems.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, second: p.title[lang2] }));
   return `
+    <div class="search-wrap">
+      <input
+        type="search"
+        id="daily-search"
+        class="search-input"
+        placeholder="${UI.searchPlaceholder.en} / ${UI.searchPlaceholder[lang2]}"
+        value="${escapeAttr(state.dailySearchQuery)}"
+      />
+    </div>
     ${renderJumpNav(navItems, "jump-daily")}
-    ${items.map(renderPrayerCard).join("")}
+    ${items.length
+      ? items.map(p => renderPrayerCard(p)).join("")
+      : `<p class="search-empty">${UI.searchNoResults.en} / ${UI.searchNoResults[lang2]}</p>`}
   `;
 }
 
@@ -216,12 +255,8 @@ function renderOpusDei() {
   const items = PRAYERS.filter(p => p.category === "opusdei");
   const navItems = items.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, second: p.title[state.secondLang] }));
   return `
-    <p class="intro-text">
-      ${UI.opusDeiIntro.en}<br/>
-      ${UI.opusDeiIntro[state.secondLang]}
-    </p>
     ${renderJumpNav(navItems, "jump-opusdei")}
-    ${items.map(renderPrayerCard).join("")}
+    ${items.map(p => renderPrayerCard(p)).join("")}
   `;
 }
 
@@ -254,7 +289,6 @@ function mysterySetHtml(key, isToday) {
   const lang2 = state.secondLang;
   return `
     <div id="mystery-${key}">
-      <h2 class="section-title"><span class="en">${set.name.en}</span> <span class="nl">${set.name[lang2]}</span></h2>
       <div class="mystery-set ${isToday ? "is-today" : ""}">
         <ol class="mystery-list">
           ${set.items.map(item => `
@@ -302,15 +336,15 @@ function renderRosary() {
     ${mysterySetHtml(state.selectedMystery, state.selectedMystery === todayKey)}
 
     <h2 class="section-title" id="section-opening"><span class="en">1. ${UI.opening.en}</span> <span class="nl">${UI.opening[lang2]}</span></h2>
-    ${openingPrayers.map(renderPrayerCard).join("")}
+    ${openingPrayers.map(p => renderPrayerCard(p, { collapsible: true })).join("")}
 
-    ${renderPrayerCard(fatima)}
+    ${renderPrayerCard(fatima, { collapsible: true })}
 
-    ${renderPrayerCard(threeHailMarys)}
+    ${renderPrayerCard(threeHailMarys, { collapsible: true })}
 
-    ${renderPrayerCard(litany)}
+    ${renderPrayerCard(litany, { collapsible: true })}
 
-    ${renderPrayerCard(closing)}
+    ${renderPrayerCard(closing, { collapsible: true })}
   `;
 }
 
@@ -509,7 +543,42 @@ contentEl.addEventListener("change", (e) => {
   select.value = "";
 });
 
+function togglePrayerExpanded(id) {
+  if (state.expandedPrayers.has(id)) state.expandedPrayers.delete(id);
+  else state.expandedPrayers.add(id);
+  vibrate();
+  render();
+}
+
+contentEl.addEventListener("keydown", (e) => {
+  const toggle = e.target.closest(".prayer-title-toggle");
+  if (!toggle) return;
+  if (e.key === "Enter" || e.key === " ") {
+    e.preventDefault();
+    togglePrayerExpanded(toggle.dataset.togglePrayer);
+  }
+});
+
+contentEl.addEventListener("input", (e) => {
+  const searchInput = e.target.closest("#daily-search");
+  if (!searchInput) return;
+  state.dailySearchQuery = searchInput.value;
+  const cursorPos = searchInput.selectionStart;
+  render();
+  const newInput = document.getElementById("daily-search");
+  if (newInput) {
+    newInput.focus();
+    newInput.setSelectionRange(cursorPos, cursorPos);
+  }
+});
+
 contentEl.addEventListener("click", (e) => {
+  const toggle = e.target.closest(".prayer-title-toggle");
+  if (toggle) {
+    togglePrayerExpanded(toggle.dataset.togglePrayer);
+    return;
+  }
+
   const mysteryBtn = e.target.closest(".mystery-select-btn");
   if (mysteryBtn) {
     state.selectedMystery = mysteryBtn.dataset.mystery;

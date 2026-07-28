@@ -695,3 +695,63 @@ footer {
 .back-to-top[hidden] {
   display: none;
 }
+
+/* ---------- Collapsible prayer cards (Rosary) ---------- */
+
+.prayer-card.collapsible .prayer-title-toggle {
+  cursor: pointer;
+  position: relative;
+  padding-right: 34px;
+  user-select: none;
+}
+
+.prayer-card.collapsible .prayer-title-toggle:active {
+  background: var(--parchment);
+}
+
+.prayer-toggle-caret {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.65rem;
+  color: var(--gold);
+}
+
+.prayer-card.collapsible:not(.expanded) {
+  margin-bottom: 10px;
+}
+
+.prayer-card.collapsible:not(.expanded) .prayer-title {
+  border-bottom: none;
+}
+
+/* ---------- Search (Daily Prayers) ---------- */
+
+.search-wrap {
+  margin: 0 0 14px;
+}
+
+.search-input {
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--ink);
+  background: var(--parchment-2);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 6px 16px var(--shadow);
+}
+
+.search-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.search-empty {
+  text-align: center;
+  padding: 24px 12px;
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-size: 0.88rem;
+}
