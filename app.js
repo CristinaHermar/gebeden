@@ -17,7 +17,7 @@ const STORAGE_KEYS = {
 const state = {
   tab: "daily",
   showLatin: false,
-  secondLang: "nl", // "nl" or "de" — which language shows in the right-hand column
+  secondLang: "nl", // "nl" or "de" — shows in the right-hand column
   selectedMystery: null, // set once MYSTERIES is available, see renderRosary
   fontSizeIndex: DEFAULT_FONT_SIZE_INDEX,
   darkMode: false,
