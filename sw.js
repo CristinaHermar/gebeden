@@ -1,4 +1,4 @@
-const CACHE_NAME = "gebeden-cache-v14";
+const CACHE_NAME = "gebeden-cache-v15";
 const ASSETS = [
   "./",
   "./index.html",

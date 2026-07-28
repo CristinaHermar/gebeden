@@ -207,7 +207,7 @@ const PRAYERS = [
     title: { en: "To Begin Prayer", nl: "Om het Gebed te Beginnen", de: "Zum Beginn des Gebets" },
     text: {
       en: "My Lord and my God, I firmly believe that you are here, that you see me, that you hear me. I adore you with profound reverence. I ask your pardon for my sins, and grace to make this time of prayer fruitful. My Immaculate Mother, Saint Joseph my father and lord, my Guardian Angel: intercede for me.",
-      nl: "Mijn Heer en mijn God, ik geloof vast dat U hier aanwezig bent, dat U mij ziet, dat U mij hoort. Ik aanbid U met diepe eerbied. Ik vraag vergeving voor mijn zonden en de genade om dit gebedsmoment vruchtbaar te maken. Mijn Onbevlekte Moeder, heilige Jozef, mijn vader en heer, mijn engelbewaarder: kom voor mij tussenbeide.",
+      nl: "Mijn Heer en mijn God, ik geloof vast dat U hier aanwezig bent, dat U mij ziet, dat U mij hoort. Ik aanbid U met diepe eerbied. Ik vraag U vergiffenis voor mijn zonden, en genade om deze tijd van gebed met vrucht te volbrengen. Maria, mijn Onbevlekte Moeder, Heilige Jozef, mijn Vader en Heer, mijn Engel Bewaarder, bid voor mij.",
       de: "Mein Herr und mein Gott, ich glaube fest, dass du hier bist, dass du mich siehst, dass du mich hörst. Ich bete dich an mit tiefer Ehrfurcht. Ich bitte dich um Verzeihung für meine Sünden und um die Gnade, diese Gebetszeit fruchtbar zu machen. Meine Unbefleckte Mutter, heiliger Josef, mein Vater und Herr, mein Schutzengel: tretet für mich ein."
     },
     source: {
@@ -222,7 +222,7 @@ const PRAYERS = [
     title: { en: "To End Prayer", nl: "Om het Gebed te Besluiten", de: "Zum Abschluss des Gebets" },
     text: {
       en: "I thank you, my God, for the good resolutions, affections, and inspirations you have communicated to me in this meditation. I ask your help to put them into effect. My Immaculate Mother, Saint Joseph my father and lord, my Guardian Angel: intercede for me.",
-      nl: "Ik dank U, mijn God, voor de goede voornemens, gevoelens en ingevingen die U mij tijdens deze overweging hebt geschonken. Ik vraag uw hulp om ze in praktijk te brengen. Mijn Onbevlekte Moeder, heilige Jozef, mijn vader en heer, mijn engelbewaarder: kom voor mij tussenbeide.",
+      nl: "Ik dank U, mijn God, voor de goede voornemens, gevoelens en ingevingen, die U mij in deze overweging heeft gegeven. Ik vraag U hulp om ze te verwezenlijken. Maria, mijn Onbevlekte Moeder, Heilige Jozef, mijn Vader en Heer, mijn Engel Bewaarder, bid voor mij.",
       de: "Ich danke dir, mein Gott, für die guten Vorsätze, Gefühle und Eingebungen, die du mir in dieser Betrachtung geschenkt hast. Ich bitte um deine Hilfe, sie in die Tat umzusetzen. Meine Unbefleckte Mutter, heiliger Josef, mein Vater und Herr, mein Schutzengel: tretet für mich ein."
     },
     source: {
