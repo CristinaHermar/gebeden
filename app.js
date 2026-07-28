@@ -3,7 +3,7 @@
    ============================================================ */
 
 const FONT_SIZES = [14, 16, 18, 20, 22, 24];
-const DEFAULT_FONT_SIZE_INDEX = 1; // 16px
+const DEFAULT_FONT_SIZE_INDEX = 3; // 20px
 
 const STORAGE_KEYS = {
   tab: "gebeden-tab",
