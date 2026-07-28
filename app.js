@@ -17,7 +17,7 @@ const STORAGE_KEYS = {
 const state = {
   tab: "daily",
   showLatin: false,
-  secondLang: "nl", // "nl" or "de" — shows in the right-hand column
+  secondLang: "nl", // "nl" or "de" — which language shows in the right-hand column
   selectedMystery: null, // set once MYSTERIES is available, see renderRosary
   fontSizeIndex: DEFAULT_FONT_SIZE_INDEX,
   darkMode: false,
@@ -244,7 +244,7 @@ function renderDaily() {
     </div>
     ${renderJumpNav(navItems, "jump-daily")}
     ${items.length
-      ? items.map(p => renderPrayerCard(p)).join("")
+      ? items.map(p => renderPrayerCard(p, { collapsible: true })).join("")
       : `<p class="search-empty">${UI.searchNoResults.en} / ${UI.searchNoResults[lang2]}</p>`}
   `;
 }
@@ -256,7 +256,7 @@ function renderOpusDei() {
   const navItems = items.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, second: p.title[state.secondLang] }));
   return `
     ${renderJumpNav(navItems, "jump-opusdei")}
-    ${items.map(p => renderPrayerCard(p)).join("")}
+    ${items.map(p => renderPrayerCard(p, { collapsible: true })).join("")}
   `;
 }
 
@@ -335,7 +335,7 @@ function renderRosary() {
     ${mysterySelectorHtml(state.selectedMystery, todayKey)}
     ${mysterySetHtml(state.selectedMystery, state.selectedMystery === todayKey)}
 
-    <h2 class="section-title" id="section-opening"><span class="en">1. ${UI.opening.en}</span> <span class="nl">${UI.opening[lang2]}</span></h2>
+    <h2 class="section-title" id="section-opening"><span class="en">${UI.opening.en}</span> <span class="nl">${UI.opening[lang2]}</span></h2>
     ${openingPrayers.map(p => renderPrayerCard(p, { collapsible: true })).join("")}
 
     ${renderPrayerCard(fatima, { collapsible: true })}
