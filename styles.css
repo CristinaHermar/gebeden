@@ -755,3 +755,70 @@ footer {
   font-style: italic;
   font-size: 0.88rem;
 }
+
+/* ---------- Latin-primary layout (Preces) ---------- */
+
+.preces-body {
+  padding: 6px 16px 16px;
+}
+
+.preces-group {
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px dashed var(--line);
+}
+
+.preces-group:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.preces-la {
+  font-style: italic;
+  font-weight: 600;
+  color: var(--wine-dark);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 10px;
+}
+
+.preces-group > .preces-la:first-child {
+  margin-top: 0;
+}
+
+.preces-badge {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--gold);
+  margin-right: 6px;
+}
+
+.preces-sub {
+  margin: 4px 0 0 20px;
+  font-size: 0.82rem;
+  color: var(--ink);
+  line-height: 1.45;
+}
+
+.preces-sub-label {
+  display: inline-block;
+  min-width: 22px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--wine-light);
+  text-transform: uppercase;
+  margin-right: 6px;
+}
+
+.preces-rubric {
+  font-style: italic;
+  font-size: 0.8rem;
+  color: var(--rubric);
+  margin-top: 10px;
+}
+
+.preces-group > .preces-rubric:first-child {
+  margin-top: 0;
+}

@@ -147,6 +147,38 @@ function renderJumpNav(items, navId) {
 
 /* ---------- Card renderers ---------- */
 
+function renderPrecesLine(line, lang2) {
+  if (line.type === "rubric") {
+    return `
+      <div class="preces-rubric">${line.la}</div>
+      <div class="preces-sub"><span class="preces-sub-label">EN</span>${line.en}</div>
+      <div class="preces-sub"><span class="preces-sub-label">${lang2.toUpperCase()}</span>${line[lang2]}</div>
+    `;
+  }
+  const badge = line.type === "v" ? "V." : line.type === "r" ? "R." : "";
+  return `
+    <div class="preces-la">${badge ? `<span class="preces-badge">${badge}</span>` : ""}${line.la}</div>
+    <div class="preces-sub"><span class="preces-sub-label">EN</span>${line.en}</div>
+    <div class="preces-sub"><span class="preces-sub-label">${lang2.toUpperCase()}</span>${line[lang2]}</div>
+  `;
+}
+
+function renderPrecesLines(prayer) {
+  const lang2 = state.secondLang;
+  let html = "";
+  let groupOpen = false;
+  prayer.lines.forEach((line) => {
+    if (line.type !== "r") {
+      if (groupOpen) html += `</div>`;
+      html += `<div class="preces-group">`;
+      groupOpen = true;
+    }
+    html += renderPrecesLine(line, lang2);
+  });
+  if (groupOpen) html += `</div>`;
+  return html;
+}
+
 function renderPrayerCard(prayer, opts = {}) {
   const collapsible = !!opts.collapsible;
   const isExpanded = !collapsible || state.expandedPrayers.has(prayer.id);
@@ -161,7 +193,13 @@ function renderPrayerCard(prayer, opts = {}) {
       </div>
   `;
 
-  if (isExpanded) {
+  if (isExpanded && prayer.latinPrimary) {
+    html += `<div class="preces-body">${renderPrecesLines(prayer)}</div>`;
+    if (prayer.source) {
+      const sourceText = [prayer.source.la, prayer.source.en, prayer.source[lang2]].filter(Boolean).join(" · ");
+      html += `<p class="prayer-source">${sourceText}</p>`;
+    }
+  } else if (isExpanded) {
     html += `
       <div class="prayer-columns">
         <div class="col col-en">${t.en}</div>
