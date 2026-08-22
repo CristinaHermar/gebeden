@@ -19,7 +19,7 @@
 
   <header class="hero">
     <h1>Gebeden</h1>
-    <p class="subtitle">My pocketttt book of daily prayer</p>
+    <p class="subtitle">My pocket book of daily prayer</p>
   </header>
 
   <nav class="tabs" id="tabs">
@@ -32,8 +32,14 @@
     <button class="tab" data-tab="opusdei">
       <span class="tab-en">Opus Dei</span><span class="tab-sep">/</span><span class="tab-nl">Opus Dei</span>
     </button>
-    <button class="tab" data-tab="settings">
-      <span class="tab-en">Settings</span><span class="tab-sep">/</span><span class="tab-nl">Instellingen</span>
+    <button class="tab tab-settings" data-tab="settings" aria-label="Settings / Instellingen" title="Settings / Instellingen">
+      <svg class="gear-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="3" fill="currentColor"/>
+        <path d="M12 1C5.9 1 1 5.9 1 12s4.9 11 11 11 11-4.9 11-11S18.1 1 12 1zm0 20c-4.97 0-9-4.03-9-9s4.03-9 9-9 9 4.03 9 9-4.03 9-9 9z" fill="currentColor" opacity="0.3"/>
+        <g transform="translate(12, 12)">
+          <path d="M2 -8 A1 1 0 0 1 2.2 -7.8 M6 -4.5 A1 1 0 0 1 6.3 -4 M7.8 2.2 A1 1 0 0 1 8 2 M4.5 6 A1 1 0 0 1 4 6.3 M-2 8 A1 1 0 0 1 -2.2 7.8 M-6 4.5 A1 1 0 0 1 -6.3 4 M-7.8 -2.2 A1 1 0 0 1 -8 -2 M-4.5 -6 A1 1 0 0 1 -4 -6.3" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+        </g>
+      </svg>
     </button>
   </nav>
 
@@ -45,6 +51,7 @@
     <div class="lang-switch" id="lang-switch" role="group" aria-label="Second language">
       <button class="lang-switch-btn active" data-lang="nl">Nederlands</button>
       <button class="lang-switch-btn" data-lang="de">Deutsch</button>
+      <button class="lang-switch-btn" data-lang="es">Español</button>
     </div>
     <button id="toggle-latin" class="latin-toggle" aria-pressed="false">
       + Latin <span class="lang-sep">/</span> Latijn

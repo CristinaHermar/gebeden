@@ -11,13 +11,15 @@ const STORAGE_KEYS = {
   showLatin: "gebeden-show-latin",
   darkMode: "gebeden-dark-mode",
   vibration: "gebeden-vibration",
-  fontSizeIndex: "gebeden-font-size-index"
+  fontSizeIndex: "gebeden-font-size-index",
+  precesLang: "gebeden-preces-lang"
 };
 
 const state = {
   tab: "daily",
   showLatin: false,
   secondLang: "nl", // "nl" or "de" — which language shows in the right-hand column
+  precesLang: "", // "es", "en", "nl", "de", or "" (empty = Latin only)
   selectedMystery: null, // set once MYSTERIES is available, see renderRosary
   fontSizeIndex: DEFAULT_FONT_SIZE_INDEX,
   darkMode: false,
@@ -50,7 +52,10 @@ function loadAllSettings() {
   if (["daily", "rosary", "opusdei", "settings"].includes(savedTab)) state.tab = savedTab;
 
   const savedLang = loadSetting(STORAGE_KEYS.secondLang, state.secondLang);
-  if (savedLang === "nl" || savedLang === "de") state.secondLang = savedLang;
+  if (savedLang === "nl" || savedLang === "de" || savedLang === "es") state.secondLang = savedLang;
+
+  const savedPrecesLang = loadSetting(STORAGE_KEYS.precesLang, state.precesLang);
+  if (["", "es", "en", "nl", "de"].includes(savedPrecesLang)) state.precesLang = savedPrecesLang;
 
   state.showLatin = loadSetting(STORAGE_KEYS.showLatin, String(state.showLatin)) === "true";
   state.darkMode = loadSetting(STORAGE_KEYS.darkMode, String(state.darkMode)) === "true";
@@ -72,46 +77,50 @@ function vibrate(ms = 12) {
 
 /* UI chrome strings that follow the chosen second language */
 const UI = {
-  jumpTo: { en: "Jump to", nl: "Ga naar", de: "Gehe zu" },
-  selectPlaceholder: { en: "select", nl: "kies", de: "wähle" },
-  opening: { en: "Prayers to Keep in Mind", nl: "Gebeden om te onthouden", de: "Wichtige Gebete" },
-  closing: { en: "Closing Prayer", nl: "Slotgebed", de: "Schlussgebet" },
-  chooseMystery: { en: "Choose which mysteries to pray", nl: "Kies welke geheimen u wilt bidden", de: "Wähle, welche Geheimnisse du beten möchtest" },
-  mysteriesNav: { en: "The Mysteries", nl: "De Geheimen", de: "Die Geheimnisse" },
-  searchPlaceholder: { en: "Search prayers…", nl: "Zoek gebeden…", de: "Gebete suchen…" },
-  searchNoResults: { en: "No prayers match your search.", nl: "Geen gebeden gevonden.", de: "Keine Gebete gefunden." },
-  tabDaily: { nl: "Dagelijks", de: "Täglich" },
-  tabRosary: { nl: "Rozenkrans", de: "Rosenkranz" },
-  tabOpusDei: { nl: "Opus Dei", de: "Opus Dei" },
-  tabSettings: { en: "Settings", nl: "Instellingen", de: "Einstellungen" },
-  settingsLanguage: { en: "Default second language", nl: "Standaard tweede taal", de: "Standard-Zweitsprache" },
+  jumpTo: { en: "Jump to", nl: "Ga naar", de: "Gehe zu", es: "Ir a" },
+  selectPlaceholder: { en: "select", nl: "kies", de: "wähle", es: "selecciona" },
+  opening: { en: "Prayers to Keep in Mind", nl: "Gebeden om te onthouden", de: "Wichtige Gebete", es: "Oraciones para Recordar" },
+  closing: { en: "Closing Prayer", nl: "Slotgebed", de: "Schlussgebet", es: "Oración de Cierre" },
+  chooseMystery: { en: "Choose which mysteries to pray", nl: "Kies welke geheimen u wilt bidden", de: "Wähle, welche Geheimnisse du beten möchtest", es: "Elige qué misterios rezar" },
+  mysteriesNav: { en: "The Mysteries", nl: "De Geheimen", de: "Die Geheimnisse", es: "Los Misterios" },
+  searchPlaceholder: { en: "Search prayers…", nl: "Zoek gebeden…", de: "Gebete suchen…", es: "Buscar oraciones…" },
+  searchNoResults: { en: "No prayers match your search.", nl: "Geen gebeden gevonden.", de: "Keine Gebete gefunden.", es: "No hay oraciones que coincidan con tu búsqueda." },
+  tabDaily: { nl: "Dagelijks", de: "Täglich", es: "Diarios" },
+  tabRosary: { nl: "Rozenkrans", de: "Rosenkranz", es: "Rosario" },
+  tabOpusDei: { nl: "Opus Dei", de: "Opus Dei", es: "Opus Dei" },
+  tabSettings: { en: "Settings", nl: "Instellingen", de: "Einstellungen", es: "Configuración" },
+  settingsLanguage: { en: "Default second language", nl: "Standaard tweede taal", de: "Standard-Zweitsprache", es: "Idioma secundario por defecto" },
   settingsLanguageDesc: {
     en: "Which language appears next to English on every prayer.",
     nl: "Welke taal naast het Engels verschijnt bij elk gebed.",
-    de: "Welche Sprache neben Englisch bei jedem Gebet erscheint."
+    de: "Welche Sprache neben Englisch bei jedem Gebet erscheint.",
+    es: "Qué idioma aparece junto al inglés en cada oración."
   },
-  settingsLatin: { en: "Show Latin by default", nl: "Toon Latijn standaard", de: "Latein standardmäßig anzeigen" },
+  settingsLatin: { en: "Show Latin by default", nl: "Toon Latijn standaard", de: "Latein standardmäßig anzeigen", es: "Mostrar latín por defecto" },
   settingsLatinDesc: {
     en: "Always show the Latin text alongside each prayer.",
     nl: "Toon altijd de Latijnse tekst naast elk gebed.",
-    de: "Den lateinischen Text immer neben jedem Gebet anzeigen."
+    de: "Den lateinischen Text immer neben jedem Gebet anzeigen.",
+    es: "Muestra siempre el texto en latín junto a cada oración."
   },
-  settingsDark: { en: "Dark mode", nl: "Donkere modus", de: "Dunkler Modus" },
+  settingsDark: { en: "Dark mode", nl: "Donkere modus", de: "Dunkler Modus", es: "Modo oscuro" },
   settingsDarkDesc: {
     en: "Easier on the eyes for night prayer.",
     nl: "Rustiger voor de ogen bij avondgebed.",
-    de: "Angenehmer für die Augen beim Abendgebet."
+    de: "Angenehmer für die Augen beim Abendgebet.",
+    es: "Más cómodo para los ojos al rezar por la noche."
   },
-  settingsVibration: { en: "Vibration", nl: "Trilling", de: "Vibration" },
+  settingsVibration: { en: "Vibration", nl: "Trilling", de: "Vibration", es: "Vibración" },
   settingsVibrationDesc: {
     en: "Brief haptic feedback when switching tabs or selecting.",
     nl: "Korte trilfeedback bij het wisselen van tabblad of selecteren.",
-    de: "Kurze haptische Rückmeldung beim Wechseln oder Auswählen."
+    de: "Kurze haptische Rückmeldung beim Wechseln oder Auswählen.",
+    es: "Retroalimentación háptica breve al cambiar de pestaña o seleccionar."
   },
-  settingsFontSize: { en: "Text size", nl: "Tekstgrootte", de: "Textgröße" },
-  settingsReset: { en: "Reset to defaults", nl: "Terugzetten naar standaard", de: "Auf Standard zurücksetzen" },
-  on: { en: "On", nl: "Aan", de: "An" },
-  off: { en: "Off", nl: "Uit", de: "Aus" }
+  settingsFontSize: { en: "Text size", nl: "Tekstgrootte", de: "Textgröße", es: "Tamaño del texto" },
+  settingsReset: { en: "Reset to defaults", nl: "Terugzetten naar standaard", de: "Auf Standard zurücksetzen", es: "Restaurar valores por defecto" },
+  on: { en: "On", nl: "Aan", de: "An", es: "Activado" },
+  off: { en: "Off", nl: "Uit", de: "Aus", es: "Desactivado" }
 };
 
 const contentEl = document.getElementById("content");
@@ -125,47 +134,39 @@ function findPrayer(id) {
   return PRAYERS.find(p => p.id === id);
 }
 
-/* ---------- Jump-to-prayer selector ---------- */
-
-function renderJumpNav(items, navId) {
-  const options = items
-    .map(it => `<option value="${it.id}">${it.en} / ${it.second}</option>`)
-    .join("");
-
-  return `
-    <div class="jump-nav-wrap">
-      <label class="jump-nav-label" for="${navId}">
-        ${UI.jumpTo.en} <span class="jump-nav-nl">/ ${UI.jumpTo[state.secondLang]}</span>
-      </label>
-      <select class="jump-nav" id="${navId}">
-        <option value="">— ${UI.selectPlaceholder.en} / ${UI.selectPlaceholder[state.secondLang]} —</option>
-        ${options}
-      </select>
-    </div>
-  `;
-}
-
 /* ---------- Card renderers ---------- */
 
-function renderPrecesLine(line, lang2) {
+function renderPrecesLine(line, precesLang) {
+  const langLabels = { es: "ES", en: "EN", nl: "NL", de: "DE" };
   if (line.type === "rubric") {
-    return `
-      <div class="preces-rubric">${line.la}</div>
-      <div class="preces-sub"><span class="preces-sub-label">EN</span>${line.en}</div>
-      <div class="preces-sub"><span class="preces-sub-label">${lang2.toUpperCase()}</span>${line[lang2]}</div>
-    `;
+    let html = `<div class="preces-rubric">${line.la}</div>`;
+    if (precesLang) {
+      html += `<div class="preces-sub"><span class="preces-sub-label">${langLabels[precesLang]}</span>${line[precesLang] || line.en}</div>`;
+    }
+    return html;
   }
   const badge = line.type === "v" ? "V." : line.type === "r" ? "R." : "";
-  return `
-    <div class="preces-la">${badge ? `<span class="preces-badge">${badge}</span>` : ""}${line.la}</div>
-    <div class="preces-sub"><span class="preces-sub-label">EN</span>${line.en}</div>
-    <div class="preces-sub"><span class="preces-sub-label">${lang2.toUpperCase()}</span>${line[lang2]}</div>
-  `;
+  let html = `<div class="preces-la">${badge ? `<span class="preces-badge">${badge}</span>` : ""}${line.la}</div>`;
+  if (precesLang) {
+    html += `<div class="preces-sub"><span class="preces-sub-label">${langLabels[precesLang]}</span>${line[precesLang] || line.en}</div>`;
+  }
+  return html;
 }
 
 function renderPrecesLines(prayer) {
-  const lang2 = state.secondLang;
-  let html = "";
+  const precesLang = state.precesLang;
+  let html = `
+    <div class="preces-lang-selector">
+      <label>Translation / Traducción:</label>
+      <div class="preces-lang-buttons">
+        <button class="preces-lang-btn ${precesLang === '' ? 'active' : ''}" data-preces-lang="">Latín only</button>
+        <button class="preces-lang-btn ${precesLang === 'es' ? 'active' : ''}" data-preces-lang="es">Español</button>
+        <button class="preces-lang-btn ${precesLang === 'en' ? 'active' : ''}" data-preces-lang="en">English</button>
+        <button class="preces-lang-btn ${precesLang === 'nl' ? 'active' : ''}" data-preces-lang="nl">Nederlands</button>
+        <button class="preces-lang-btn ${precesLang === 'de' ? 'active' : ''}" data-preces-lang="de">Deutsch</button>
+      </div>
+    </div>
+  `;
   let groupOpen = false;
   prayer.lines.forEach((line) => {
     if (line.type !== "r") {
@@ -173,7 +174,7 @@ function renderPrecesLines(prayer) {
       html += `<div class="preces-group">`;
       groupOpen = true;
     }
-    html += renderPrecesLine(line, lang2);
+    html += renderPrecesLine(line, precesLang);
   });
   if (groupOpen) html += `</div>`;
   return html;
@@ -280,7 +281,6 @@ function renderDaily() {
         value="${escapeAttr(state.dailySearchQuery)}"
       />
     </div>
-    ${renderJumpNav(navItems, "jump-daily")}
     ${items.length
       ? items.map(p => renderPrayerCard(p, { collapsible: true })).join("")
       : `<p class="search-empty">${UI.searchNoResults.en} / ${UI.searchNoResults[lang2]}</p>`}
@@ -291,9 +291,7 @@ function renderDaily() {
 
 function renderOpusDei() {
   const items = PRAYERS.filter(p => p.category === "opusdei");
-  const navItems = items.map(p => ({ id: `prayer-${p.id}`, en: p.title.en, second: p.title[state.secondLang] }));
   return `
-    ${renderJumpNav(navItems, "jump-opusdei")}
     ${items.map(p => renderPrayerCard(p, { collapsible: true })).join("")}
   `;
 }
@@ -368,8 +366,6 @@ function renderRosary() {
   ];
 
   return `
-    ${renderJumpNav(navItems, "jump-rosary")}
-
     ${mysterySelectorHtml(state.selectedMystery, todayKey)}
     ${mysterySetHtml(state.selectedMystery, state.selectedMystery === todayKey)}
 
@@ -408,6 +404,7 @@ function renderSettings() {
         <div class="lang-switch settings-lang-switch" id="settings-lang-switch">
           <button class="lang-switch-btn ${state.secondLang === "nl" ? "active" : ""}" data-lang="nl">Nederlands</button>
           <button class="lang-switch-btn ${state.secondLang === "de" ? "active" : ""}" data-lang="de">Deutsch</button>
+          <button class="lang-switch-btn ${state.secondLang === "es" ? "active" : ""}" data-lang="es">Español</button>
         </div>
       </div>
 
@@ -569,16 +566,20 @@ langSwitchEl.addEventListener("click", (e) => {
   render();
 });
 
-/* Jump-to-prayer selectors, mystery buttons, and settings controls are
-   re-created on every render, so listen via delegation on the content container. */
-contentEl.addEventListener("change", (e) => {
-  const select = e.target.closest(".jump-nav");
-  if (!select || !select.value) return;
-  const target = document.getElementById(select.value);
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
+/* Jump-to-prayer selectors, mystery buttons, settings controls, and Preces language buttons
+   are re-created on every render, so listen via delegation on the content container. */
+contentEl.addEventListener("click", (e) => {
+  const precesLangBtn = e.target.closest(".preces-lang-btn");
+  if (precesLangBtn) {
+    const newLang = precesLangBtn.dataset.precesLang;
+    if (["", "es", "en", "nl", "de"].includes(newLang)) {
+      state.precesLang = newLang;
+      saveSetting(STORAGE_KEYS.precesLang, state.precesLang);
+      vibrate();
+      render();
+    }
+    return;
   }
-  select.value = "";
 });
 
 function togglePrayerExpanded(id) {

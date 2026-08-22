@@ -117,6 +117,11 @@ body {
   align-items: center;
   gap: 1px;
   line-height: 1.25;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab:active {
+  transform: scale(0.98);
 }
 
 .tab .tab-sep { display: none; }
@@ -125,9 +130,39 @@ body {
 .tab.active {
   background: linear-gradient(135deg, var(--wine), var(--wine-dark));
   color: var(--parchment-2);
+  box-shadow: 0 4px 12px rgba(122, 31, 61, 0.3);
 }
 
 .tab.active .tab-nl { opacity: 0.85; }
+
+/* Settings gear icon tab */
+.tab-settings {
+  flex: 0;
+  min-width: 44px;
+  padding: 12px !important;
+}
+
+.gear-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--wine-dark);
+  transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55), color 0.2s ease;
+}
+
+.tab-settings.active .gear-icon {
+  color: var(--parchment-2);
+  animation: rotate-gear 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.tab-settings:hover .gear-icon {
+  transform: rotate(20deg);
+  color: var(--gold);
+}
+
+@keyframes rotate-gear {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 /* ---------- Language bar ---------- */
 
@@ -153,26 +188,45 @@ body {
   font-size: 0.82rem;
   color: var(--wine-dark);
   background: var(--parchment-2);
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   border-radius: 999px;
   padding: 8px 16px;
   cursor: pointer;
   letter-spacing: 0.3px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.latin-toggle:hover {
+  background: var(--gold-light);
+  color: var(--wine-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184, 137, 79, 0.25);
+}
+
+.latin-toggle:active {
+  transform: translateY(0);
 }
 
 .latin-toggle .lang-sep { opacity: 0.5; margin: 0 2px; }
 
 .latin-toggle[aria-pressed="true"] {
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold), #c9a558);
   color: var(--wine-dark);
-  border-color: var(--gold);
+  border-color: var(--wine-dark);
   font-weight: 600;
+  box-shadow: 0 4px 12px rgba(122, 31, 61, 0.2);
+}
+
+.latin-toggle[aria-pressed="true"]:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(122, 31, 61, 0.3);
 }
 
 .lang-switch {
   display: inline-flex;
   background: var(--parchment-2);
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   border-radius: 999px;
   padding: 3px;
   gap: 2px;
@@ -188,18 +242,25 @@ body {
   padding: 6px 14px;
   cursor: pointer;
   letter-spacing: 0.2px;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.lang-switch-btn:hover {
+  background: rgba(184, 137, 79, 0.15);
 }
 
 .lang-switch-btn.active {
-  background: var(--gold);
+  background: linear-gradient(135deg, var(--gold), #c9a558);
   color: var(--wine-dark);
   font-weight: 600;
+  box-shadow: 0 2px 8px rgba(122, 31, 61, 0.15);
 }
 
 .font-size-control {
   display: inline-flex;
   background: var(--parchment-2);
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   border-radius: 999px;
   padding: 3px;
   gap: 2px;
@@ -215,10 +276,15 @@ body {
   padding: 6px 12px;
   cursor: pointer;
   line-height: 1;
+  transition: all 0.2s ease;
 }
 
 .font-size-btn:first-child { font-size: 0.75rem; }
 .font-size-btn:last-child { font-size: 1.05rem; }
+
+.font-size-btn:hover:not(:disabled) {
+  background: rgba(184, 137, 79, 0.15);
+}
 
 .font-size-btn:disabled {
   opacity: 0.35;
@@ -226,7 +292,8 @@ body {
 }
 
 .font-size-btn:not(:disabled):active {
-  background: var(--gold-light);
+  background: var(--gold);
+  font-weight: 800;
 }
 
 /* ---------- Content ---------- */
@@ -239,50 +306,13 @@ main {
 
 /* ---------- Jump-to-prayer selector ---------- */
 
-.jump-nav-wrap {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: var(--parchment-2);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 10px 14px;
-  margin: 0 0 20px;
-  box-shadow: 0 8px 20px var(--shadow);
-}
-
-.jump-nav-label {
-  flex-shrink: 0;
-  font-size: 0.78rem;
-  color: var(--wine-dark);
-  letter-spacing: 0.2px;
-  opacity: 0.85;
-}
-
-.jump-nav-label .jump-nav-nl {
-  font-style: italic;
-  opacity: 0.8;
-}
-
-.jump-nav {
-  flex: 1;
-  min-width: 0;
-  font-family: inherit;
-  font-size: 0.85rem;
-  color: var(--wine-dark);
-  background: var(--parchment);
-  border: 1px solid var(--gold);
-  border-radius: 8px;
-  padding: 8px 10px;
-}
-
 .section-title {
   color: var(--wine);
   font-size: 1.05rem;
   letter-spacing: 0.5px;
   margin: 22px 4px 10px;
   padding-bottom: 6px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--gold-light);
 }
 
 .section-title .en { font-weight: 600; }
@@ -306,6 +336,12 @@ main {
   margin-bottom: 16px;
   box-shadow: 0 8px 22px var(--shadow);
   overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.prayer-card:hover {
+  box-shadow: 0 12px 32px rgba(122, 31, 61, 0.18);
+  transform: translateY(-2px);
 }
 
 .prayer-title {
@@ -314,6 +350,7 @@ main {
   gap: 10px;
   padding: 14px 16px 10px;
   border-bottom: 1px solid var(--line);
+  background: linear-gradient(135deg, rgba(122, 31, 61, 0.02), transparent);
 }
 
 .prayer-title .col-title {
@@ -371,7 +408,7 @@ main {
   margin: 0 16px 16px;
   padding: 12px 14px;
   background: linear-gradient(180deg, #fbf3e0, #f6ead0);
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   border-radius: 10px;
   font-style: italic;
   font-size: 0.88rem;
@@ -387,31 +424,17 @@ main {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   color: var(--gold);
-  background: var(--wine-dark);
-  padding: 2px 8px;
-  border-radius: 999px;
-  width: fit-content;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
 }
 
-.prayer-source {
-  margin: 0 16px 14px;
-  font-size: 0.72rem;
-  color: var(--text-tertiary);
-  font-style: italic;
-}
-
-/* ---------- Rosary specific ---------- */
-
-.mystery-select-wrap {
-  margin: 22px 0 14px;
-}
+/* ---------- Rosary ---------- */
 
 .mystery-select-label {
   margin: 0 4px 8px;
   font-size: 0.8rem;
   color: var(--wine-dark);
   opacity: 0.8;
+  font-weight: 600;
 }
 
 .mystery-select-label-nl {
@@ -430,7 +453,7 @@ main {
   font-family: inherit;
   text-align: left;
   background: var(--parchment-2);
-  border: 1px solid var(--line);
+  border: 2px solid var(--line);
   border-radius: 12px;
   padding: 10px 30px 10px 12px;
   cursor: pointer;
@@ -438,6 +461,13 @@ main {
   flex-direction: column;
   gap: 1px;
   line-height: 1.25;
+  transition: all 0.2s ease;
+}
+
+.mystery-select-btn:hover {
+  border-color: var(--gold);
+  background: rgba(227, 198, 143, 0.05);
+  transform: translateY(-1px);
 }
 
 .mystery-select-btn .en {
@@ -456,6 +486,7 @@ main {
 .mystery-select-btn.active {
   background: linear-gradient(135deg, var(--wine), var(--wine-dark));
   border-color: var(--wine-dark);
+  box-shadow: 0 4px 12px rgba(122, 31, 61, 0.3);
 }
 
 .mystery-select-btn.active .en { color: var(--parchment-2); }
@@ -469,6 +500,12 @@ main {
   height: 8px;
   border-radius: 50%;
   background: var(--gold);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
 }
 
 .mystery-select-btn.active .today-dot {
@@ -492,7 +529,8 @@ main {
 
 .mystery-set.is-today {
   border-color: var(--gold);
-  box-shadow: 0 8px 24px var(--shadow), 0 0 0 2px var(--gold-light) inset;
+  border-width: 2px;
+  box-shadow: 0 8px 24px var(--shadow), 0 0 0 3px var(--gold-light) inset;
 }
 
 .mystery-list {
@@ -579,6 +617,11 @@ footer {
   gap: 14px;
   padding: 16px;
   border-bottom: 1px solid var(--line);
+  transition: all 0.2s ease;
+}
+
+.settings-row:hover {
+  background: rgba(227, 198, 143, 0.03);
 }
 
 .settings-row:last-child { border-bottom: none; }
@@ -621,11 +664,24 @@ footer {
   font-size: 0.85rem;
   color: var(--rubric);
   background: var(--parchment-2);
-  border: 1px solid var(--rubric);
+  border: 2px solid var(--rubric);
   border-radius: 12px;
   padding: 12px;
   cursor: pointer;
   text-align: center;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.settings-reset:hover {
+  background: rgba(162, 59, 46, 0.08);
+  transform: translateY(-1px);
+}
+
+.settings-reset:active {
+  background: var(--rubric);
+  color: var(--parchment-2);
+  transform: translateY(0);
 }
 
 .settings-reset-nl {
@@ -633,23 +689,19 @@ footer {
   opacity: 0.85;
 }
 
-.settings-reset:active {
-  background: var(--rubric);
-  color: var(--parchment-2);
-}
-
 /* ---------- Toggle switch ---------- */
 
 .toggle-switch {
   flex-shrink: 0;
   position: relative;
-  width: 46px;
-  height: 26px;
+  width: 48px;
+  height: 28px;
   border-radius: 999px;
-  border: 1px solid var(--line);
+  border: 2px solid var(--line);
   background: var(--parchment);
   cursor: pointer;
   padding: 0;
+  transition: all 0.25s ease;
 }
 
 .toggle-switch .toggle-knob {
@@ -660,12 +712,17 @@ footer {
   height: 20px;
   border-radius: 50%;
   background: var(--text-tertiary);
-  transition: transform 0.15s ease, background 0.15s ease;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), background 0.25s ease;
+}
+
+.toggle-switch:hover {
+  border-color: var(--gold);
 }
 
 .toggle-switch.on {
-  background: var(--wine);
+  background: linear-gradient(135deg, var(--wine), var(--wine-dark));
   border-color: var(--wine);
+  box-shadow: 0 4px 12px rgba(122, 31, 61, 0.25);
 }
 
 .toggle-switch.on .toggle-knob {
@@ -682,7 +739,7 @@ footer {
   width: 46px;
   height: 46px;
   border-radius: 50%;
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   background: linear-gradient(135deg, var(--wine), var(--wine-dark));
   color: var(--parchment-2);
   font-size: 1.2rem;
@@ -690,6 +747,16 @@ footer {
   box-shadow: 0 8px 20px var(--shadow);
   cursor: pointer;
   z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(122, 31, 61, 0.35);
+}
+
+.back-to-top:active {
+  transform: translateY(-1px);
 }
 
 .back-to-top[hidden] {
@@ -703,6 +770,7 @@ footer {
   position: relative;
   padding-right: 34px;
   user-select: none;
+  transition: all 0.2s ease;
 }
 
 .prayer-card.collapsible .prayer-title-toggle:active {
@@ -716,6 +784,11 @@ footer {
   transform: translateY(-50%);
   font-size: 0.65rem;
   color: var(--gold);
+  transition: transform 0.3s ease;
+}
+
+.prayer-card.collapsible.expanded .prayer-toggle-caret {
+  transform: translateY(-50%) rotate(180deg);
 }
 
 .prayer-card.collapsible:not(.expanded) {
@@ -738,10 +811,17 @@ footer {
   font-size: 0.9rem;
   color: var(--ink);
   background: var(--parchment-2);
-  border: 1px solid var(--gold);
+  border: 2px solid var(--gold);
   border-radius: 12px;
   padding: 12px 14px;
   box-shadow: 0 6px 16px var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--wine);
+  box-shadow: 0 8px 20px rgba(122, 31, 61, 0.2);
 }
 
 .search-input::placeholder {
@@ -760,6 +840,63 @@ footer {
 
 .preces-body {
   padding: 6px 16px 16px;
+}
+
+.preces-lang-selector {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+
+.preces-lang-btn {
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--wine-dark);
+  background: var(--parchment-2);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.preces-lang-btn:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.preces-lang-btn:hover {
+  background: rgba(227, 198, 143, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(184, 137, 79, 0.25);
+}
+
+.preces-lang-btn:hover:before {
+  left: 100%;
+}
+
+.preces-lang-btn.active {
+  background: linear-gradient(135deg, var(--gold), #c9a558);
+  color: var(--wine-dark);
+  border-color: var(--wine-dark);
+  box-shadow: 0 6px 16px rgba(122, 31, 61, 0.25);
+  transform: scale(1.02);
+}
+
+.preces-lang-btn.active:hover {
+  transform: scale(1.02) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(122, 31, 61, 0.35);
 }
 
 .preces-group {
@@ -792,6 +929,7 @@ footer {
   font-weight: 700;
   color: var(--gold);
   margin-right: 6px;
+  font-size: 0.9em;
 }
 
 .preces-sub {
@@ -810,6 +948,9 @@ footer {
   color: var(--wine-light);
   text-transform: uppercase;
   margin-right: 6px;
+  background: rgba(162, 74, 104, 0.1);
+  padding: 2px 6px;
+  border-radius: 4px;
 }
 
 .preces-rubric {
