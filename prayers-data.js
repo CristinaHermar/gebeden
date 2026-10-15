@@ -129,6 +129,7 @@ const PRAYERS = [
       en: "Hail Mary, Daughter of God the Father…<br><br>Hail Mary, Mother of God the Son…<br><br>Hail Mary, Spouse of God the Holy Spirit…",
       nl: "Wees gegroet, Maria, Dochter van God de Vader…<br><br>Wees gegroet, Maria, Moeder van God de Zoon…<br><br>Wees gegroet, Maria, Bruid van de Heilige Geest…",
       de: "Gegrüßet seist du, Maria, Tochter Gottes des Vaters…<br><br>Gegrüßet seist du, Maria, Mutter Gottes des Sohnes…<br><br>Gegrüßet seist du, Maria, Braut Gottes des Heiligen Geistes…",
+      es: "Dios te salve, Maria, Hija de Dios Padre…<br><br>Dios te salve, Maria, Madre de Dios Hijo…<br><br>Dios te salve, Maria, Esposa de Dios Espíritu Santo…",
       la: "Ave María, fília Dei Patris…<br><br>Ave María, mater Dei Fílii…<br><br>Ave María, sponsa Spíritus Sancti…"
     }
   },
